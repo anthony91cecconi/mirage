@@ -1,0 +1,32 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="mirage"
+run/main_scene="res://scenes/rooms/room_47_Infirmary/room_47_infirmary.tscn"
+config/features=PackedStringArray("4.3", "Mobile")
+config/icon="res://icon.svg"
+
+[autoload]
+
+D="*res://scripts/utility/Debugger.gd"
+SaveManager="*res://scripts/memory/SaveManager.gd"
+LoadManager="*res://scripts/memory/LoadManager.gd"
+SaveFinalRecorder="*res://scripts/memory/SaveFinalRecorder.gd"
+
+[layer_names]
+
+2d_physics/layer_1="PLAYER"
+2d_physics/layer_3="FLOOR"
+
+[rendering]
+
+renderer/rendering_method="mobile"

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnq4g613s56rg"]
+
+[ext_resource type="Script" path="res://scenes/characters/player/topdown/cameratopdown/camera_top_down_player.gd" id="1_0arn1"]
+
+[node name="CameraTopDownPlayer" type="Camera2D"]
+script = ExtResource("1_0arn1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

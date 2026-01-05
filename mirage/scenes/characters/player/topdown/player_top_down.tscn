@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmcsxuf0yrjj1"]
+
+[ext_resource type="Script" path="res://scenes/characters/player/topdown/player_top_down.gd" id="1_5mx8w"]
+[ext_resource type="PackedScene" uid="uid://bf04ou7v2efyi" path="res://scenes/characters/model/humans_top_downn/humans_top_down.tscn" id="2_ybk2y"]
+[ext_resource type="PackedScene" uid="uid://dnq4g613s56rg" path="res://scenes/characters/player/topdown/cameratopdown/camera_top_down_player.tscn" id="3_2veir"]
+
+[node name="PlayerTopDown" type="Node2D"]
+script = ExtResource("1_5mx8w")
+
+[node name="HumansTopDown" parent="." instance=ExtResource("2_ybk2y")]
+collision_mask = 26
+
+[node name="CameraTopDownPlayer" parent="HumansTopDown" instance=ExtResource("3_2veir")]

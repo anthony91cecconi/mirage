@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://5cavhstqhq6d"]
+
+[ext_resource type="Script" path="res://scenes/core/home/home.gd" id="1_3hxm3"]
+
+[node name="Home" type="CanvasLayer"]
+script = ExtResource("1_3hxm3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0357572, 0.0824303, 0.0342051, 1)
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="StartGame" type="Button" parent="Buttons"]
+layout_mode = 2
+text = "START GAME"
+
+[connection signal="pressed" from="Buttons/StartGame" to="." method="_on_start_game_pressed"]
