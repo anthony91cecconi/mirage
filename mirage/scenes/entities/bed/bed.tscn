@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://beu1myeadlwq8"]
+
+[ext_resource type="Texture2D" uid="uid://bdarbnjx6uamx" path="res://scenes/entities/bed/asset/sprite/beds.png" id="1_01dyl"]
+[ext_resource type="Script" path="res://scenes/entities/bed/bed.gd" id="1_kgpad"]
+[ext_resource type="PackedScene" uid="uid://dv7y3vr2abnj7" path="res://scenes/entities/bed/menu/bed_menu.tscn" id="3_5pr8x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_177c5"]
+size = Vector2(57, 96.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6psg0"]
+size = Vector2(57, 97)
+
+[node name="Bed" type="Node2D" groups=["entities"]]
+script = ExtResource("1_kgpad")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["entities"]]
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(-9.18751, 29.75)
+scale = Vector2(0.232741, 0.288618)
+texture = ExtResource("1_01dyl")
+region_enabled = true
+region_rect = Rect2(843, 38, 259, 357)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-9, 27)
+shape = SubResource("RectangleShape2D_177c5")
+
+[node name="Area2D" type="Area2D" parent="StaticBody2D" groups=["entities"]]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D"]
+position = Vector2(-9.5, 27.5)
+shape = SubResource("RectangleShape2D_6psg0")
+
+[node name="BedMenu" parent="." instance=ExtResource("3_5pr8x")]
+offset_left = 69.0
+offset_top = -8.0
+offset_right = 69.0
+offset_bottom = -8.0
+
+[connection signal="area_entered" from="StaticBody2D/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="StaticBody2D/Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="input_event" from="StaticBody2D/Area2D" to="." method="_on_area_2d_input_event"]

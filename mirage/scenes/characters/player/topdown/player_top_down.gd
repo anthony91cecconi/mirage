@@ -41,3 +41,9 @@ func _setup_head():
 		human.set_head_override(frames)
 	else:
 		human.has_helmet = true
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	print(area.get_groups())
+	if area.is_in_group("entities"):
+		print(area.get_parent())

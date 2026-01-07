@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmcsxuf0yrjj1"]
+[gd_scene load_steps=5 format=3 uid="uid://cmcsxuf0yrjj1"]
 
 [ext_resource type="Script" path="res://scenes/characters/player/topdown/player_top_down.gd" id="1_5mx8w"]
 [ext_resource type="PackedScene" uid="uid://bf04ou7v2efyi" path="res://scenes/characters/model/humans_top_downn/humans_top_down.tscn" id="2_ybk2y"]
 [ext_resource type="PackedScene" uid="uid://dnq4g613s56rg" path="res://scenes/characters/player/topdown/cameratopdown/camera_top_down_player.tscn" id="3_2veir"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0ix01"]
+radius = 37.1214
 
 [node name="PlayerTopDown" type="Node2D"]
 script = ExtResource("1_5mx8w")
@@ -11,3 +14,16 @@ script = ExtResource("1_5mx8w")
 collision_mask = 26
 
 [node name="CameraTopDownPlayer" parent="HumansTopDown" instance=ExtResource("3_2veir")]
+zoom = Vector2(2, 2)
+
+[node name="RayCast2D" type="RayCast2D" parent="HumansTopDown"]
+position = Vector2(32, 33)
+target_position = Vector2(0, 45)
+
+[node name="Area2D" type="Area2D" parent="HumansTopDown" groups=["player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HumansTopDown/Area2D"]
+position = Vector2(32, 34)
+shape = SubResource("CircleShape2D_0ix01")
+
+[connection signal="area_entered" from="HumansTopDown/Area2D" to="." method="_on_area_2d_area_entered"]

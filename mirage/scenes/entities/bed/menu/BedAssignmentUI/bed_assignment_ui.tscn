@@ -1,0 +1,129 @@
+[gd_scene load_steps=2 format=3 uid="uid://bygwpxu3lg6oj"]
+
+[ext_resource type="Script" path="res://scenes/entities/bed/menu/BedAssignmentUI/bed_assignment_ui.gd" id="1_4cwvg"]
+
+[node name="BedAssignmentUI" type="CanvasLayer"]
+script = ExtResource("1_4cwvg")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabBar" type="TabBar" parent="Control/VBoxContainer"]
+layout_mode = 2
+current_tab = 0
+tab_count = 2
+tab_0/title = "ASSIGNMENT"
+tab_1/title = "testt"
+
+[node name="Content" type="Control" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Assignment" type="Control" parent="Control/VBoxContainer/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/Content/Assignment"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BedInfo" type="Control" parent="Control/VBoxContainer/Content/Assignment/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/VBoxContainer/Content/Assignment/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ListHumans" type="VBoxContainer" parent="Control/VBoxContainer/Content/Assignment/HBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FilterAndControl" type="Control" parent="Control/VBoxContainer/Content/Assignment/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer/Content/Assignment/HBoxContainer/FilterAndControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.340339, 0.340339, 0.340339, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/Content/Assignment/HBoxContainer/FilterAndControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.322
+anchor_top = 0.139
+anchor_right = 0.683
+anchor_bottom = 0.204
+offset_left = -0.00401306
+offset_top = -0.207008
+offset_right = 0.0939941
+offset_bottom = -0.0520096
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/Content/Assignment/HBoxContainer/FilterAndControl/HBoxContainer"]
+layout_mode = 2
+text = "Unassigned
+"
+
+[node name="UnassignedFilter" type="CheckButton" parent="Control/VBoxContainer/Content/Assignment/HBoxContainer/FilterAndControl/HBoxContainer"]
+layout_mode = 2
+
+[node name="Save" type="Button" parent="Control/VBoxContainer/Content/Assignment/HBoxContainer/FilterAndControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.463
+anchor_top = 0.825
+anchor_right = 0.589
+anchor_bottom = 0.876
+offset_left = 0.133987
+offset_top = 0.274963
+offset_right = -0.998016
+offset_bottom = 0.0119629
+scale = Vector2(1.02332, 1)
+text = "SAVE
+"
+
+[node name="Test" type="Control" parent="Control/VBoxContainer/Content"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer/Content/Test"]
+layout_mode = 0
+offset_right = 323.0
+offset_bottom = 159.0
+color = Color(0.293271, 0.314688, 0.0854195, 1)
+
+[connection signal="tab_changed" from="Control/VBoxContainer/TabBar" to="." method="_on_tab_bar_tab_changed"]
+[connection signal="toggled" from="Control/VBoxContainer/Content/Assignment/HBoxContainer/FilterAndControl/HBoxContainer/UnassignedFilter" to="." method="_on_unassigned_filter_toggled"]
+[connection signal="pressed" from="Control/VBoxContainer/Content/Assignment/HBoxContainer/FilterAndControl/Save" to="." method="_on_save_pressed"]

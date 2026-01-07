@@ -332,13 +332,10 @@ shape = SubResource("CapsuleShape2D_qbe4s")
 [node name="Body" type="AnimatedSprite2D" parent="."]
 position = Vector2(32, 44)
 sprite_frames = SubResource("SpriteFrames_t6uw3")
-animation = &"die"
-frame = 4
-frame_progress = 1.0
+animation = &"right"
 
 [node name="Head" type="AnimatedSprite2D" parent="."]
 position = Vector2(32, 12)
 sprite_frames = SubResource("SpriteFrames_oo1ix")
-animation = &"die"
-frame = 4
-frame_progress = 1.0
+animation = &"down"
+frame_progress = 0.475198

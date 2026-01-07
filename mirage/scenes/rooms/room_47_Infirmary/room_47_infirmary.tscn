@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://bej46042f4i12"]
+[gd_scene load_steps=6 format=4 uid="uid://bej46042f4i12"]
 
 [ext_resource type="Texture2D" uid="uid://y4l5rih6l78q" path="res://scenes/rooms/room_47_Infirmary/assets/tile/floor&wall.png" id="1_yfg55"]
 [ext_resource type="PackedScene" uid="uid://cmcsxuf0yrjj1" path="res://scenes/characters/player/topdown/player_top_down.tscn" id="2_ji2to"]
+[ext_resource type="PackedScene" uid="uid://beu1myeadlwq8" path="res://scenes/entities/bed/bed.tscn" id="3_hy122"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ywl2s"]
 texture = ExtResource("1_yfg55")
@@ -186,3 +187,8 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAEAAAABAAAAAAABAAA
 tile_set = SubResource("TileSet_chfmm")
 
 [node name="PlayerTopDown" parent="." instance=ExtResource("2_ji2to")]
+position = Vector2(137, 288)
+
+[node name="Bed" parent="." instance=ExtResource("3_hy122")]
+position = Vector2(59, 255)
+bed_info = NodePath("")
