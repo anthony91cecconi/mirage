@@ -10,6 +10,8 @@ var bed_id : String
 @onready var listHumans : Control = $Control/VBoxContainer/Content/Assignment/HBoxContainer/ScrollContainer/ListHumans
 var humanLabelScene: PackedScene = preload("res://scenes/entities/bed/menu/BedAssignmentUI/human/human_index.tscn")
 
+signal save
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_on_tab_bar_tab_changed(0)
@@ -27,7 +29,7 @@ func _on_tab_bar_tab_changed(tab: int) -> void:
 
 
 func _on_save_pressed() -> void:
-	pass # Replace with function body.
+	save.emit()
 
 
 func _on_unassigned_filter_toggled(toggled_on: bool) -> void:
@@ -41,3 +43,6 @@ func populate_humans_list() -> void:
 		var card = humanLabelScene.instantiate()
 		listHumans.add_child(card)          # prima entra nell'albero
 		card.setup(human_info)              # poi configuri
+
+func close():
+	queue_free()

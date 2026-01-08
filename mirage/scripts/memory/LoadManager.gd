@@ -1,7 +1,7 @@
 extends Node
 
-const SAVE_PATH := "user://save.json"
-
+#const SAVE_PATH := "user://save.json"
+const SAVE_PATH := "res://temp/save.json"
 var data: Dictionary = {}   # Loaded data
 
 
@@ -37,3 +37,57 @@ func get_value(key: String, default_value = null):
 	if data.has(key):
 		return data[key]
 	return default_value
+
+
+#-------------------------------------------------------
+#------------------gestione CRUD letti -----------------
+#-------------------------------------------------------
+func get_bed(bed_id) -> Dictionary:
+	if not data.has("entities"):
+		return {"succes" : false}
+
+	if not data["entities"].has("beds"):
+		return {"succes" : false}
+
+	for bed in data["entities"]["beds"]:
+		if bed.get("bed_id") == bed_id:
+			
+			return {"succes" : true,"bed":BedInfo.from_dict(bed)}
+	return {"succes" : false}
+
+#-------------------------------------------------------
+#------------------gestione CRUD player -----------------
+#-------------------------------------------------------
+func get_player() -> HumansInfo:
+	if not data.has("player"):
+		SaveManager.generate_defoult_player()
+	return HumansInfo.from_dict(data["player"])
+
+
+#-------------------------------------------------------
+#------------------gestione CRUD npc -----------------
+#-------------------------------------------------------
+func get_human(human_id) -> Dictionary:
+	if not data.has("humans"):
+		return {"succes" : false}
+
+	for human in data["humans"]:
+		if human.get("human_id") == human_id:
+			return {"succes" : true,"human":human}
+
+	return {"succes" : false}
+
+func get_all_humans() -> Array[HumansInfo]:
+	return data["humans"]
+
+
+#-------------------------------------------------------
+#------------------gestione CRUD tempo -----------------
+#-------------------------------------------------------
+
+func load_time_second() -> float:
+	if not data.has("stats"):
+		data["stats"] = {}	
+		SaveManager.save_time_second(90.0 * 60.0 * 60.0)
+		load_data()
+	return data["stats"]["time"]

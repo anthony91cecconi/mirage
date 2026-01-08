@@ -187,8 +187,15 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAEAAAABAAAAAAABAAA
 tile_set = SubResource("TileSet_chfmm")
 
 [node name="PlayerTopDown" parent="." instance=ExtResource("2_ji2to")]
-position = Vector2(137, 288)
+position = Vector2(170, 254)
 
 [node name="Bed" parent="." instance=ExtResource("3_hy122")]
-position = Vector2(59, 255)
-bed_info = NodePath("")
+position = Vector2(55, 251)
+bed_active = true
+bed_id = "001"
+mental_health_delta = 5
+sleep_recovery = 5
+
+[node name="Bed2" parent="." instance=ExtResource("3_hy122")]
+position = Vector2(126, 314)
+bed_id = "002"

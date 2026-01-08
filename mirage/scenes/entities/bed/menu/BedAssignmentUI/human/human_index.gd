@@ -24,5 +24,5 @@ func _apply() -> void:
 		hide()
 		return
 
-	has_bed.color = Color.RED if humanData.bed_id_assigned.is_empty() else Color.GREEN
+	has_bed.color = Color.RED if humanData.bed_id.is_empty() else Color.GREEN
 	name_label.text = humanData.human_name  # oppure humanData.name, in base alla tua classe

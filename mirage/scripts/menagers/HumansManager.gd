@@ -6,16 +6,14 @@ var humans: Array[HumansInfo] = [
 		"test",
 		Vector2(0, 0),
 		"",
-		true
+		true,
+		"test"
 	)
 ]
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func assign_bed(_human_id : String, _bed_id : String) -> void:
+	for h in  humans:
+		if h.get("human_id") == _human_id:
+			SaveManager

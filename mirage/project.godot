@@ -23,11 +23,13 @@ LoadManager="*res://scripts/memory/LoadManager.gd"
 SaveFinalRecorder="*res://scripts/memory/SaveFinalRecorder.gd"
 PlayerManager="*res://scripts/menagers/PlayerManager.gd"
 HumansManager="*res://scripts/menagers/HumansManager.gd"
+TimeManager="*res://scripts/menagers/TimeManager.gd"
 
 [global_group]
 
 entities="tutte le entita con cui il player puo interagire"
 player=""
+bed=""
 
 [input]
 

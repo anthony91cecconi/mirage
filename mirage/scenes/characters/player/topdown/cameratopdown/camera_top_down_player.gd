@@ -1,11 +1,8 @@
 extends Camera2D
+@onready var timestamp : Label = $CanvasLayer/Time
 
+func _ready():
+	TimeManager.time_tick.connect(_on_time_tick)
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_time_tick(hours_left: float):
+	timestamp.text = TimeManager.get_formatted_time()

@@ -10,10 +10,10 @@ size = Vector2(57, 96.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6psg0"]
 size = Vector2(57, 97)
 
-[node name="Bed" type="Node2D" groups=["entities"]]
+[node name="Bed" type="Node2D" groups=["bed", "entities"]]
 script = ExtResource("1_kgpad")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["entities"]]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
@@ -27,7 +27,7 @@ region_rect = Rect2(843, 38, 259, 357)
 position = Vector2(-9, 27)
 shape = SubResource("RectangleShape2D_177c5")
 
-[node name="Area2D" type="Area2D" parent="StaticBody2D" groups=["entities"]]
+[node name="Area2D" type="Area2D" parent="StaticBody2D"]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D"]

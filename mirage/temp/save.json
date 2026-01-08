@@ -1,0 +1,36 @@
+{
+	"entities": {
+		"beds": [
+			{
+				"NPC_ID": "player",
+				"bed_active": true,
+				"bed_id": "001",
+				"brocken": false,
+				"mental_health_delta": 5,
+				"sleep_recovery": 5
+			},
+			{
+				"NPC_ID": "",
+				"bed_active": false,
+				"bed_id": "002",
+				"brocken": false,
+				"mental_health_delta": 0,
+				"sleep_recovery": 0
+			}
+		]
+	},
+	"player": {
+		"bed_id": "001",
+		"human_active": true,
+		"human_id": "player",
+		"human_name": "player di prova",
+		"position": {
+			"x": 0,
+			"y": 0
+		},
+		"room": ""
+	},
+	"stats": {
+		"time": 323992.999214008
+	}
+}
