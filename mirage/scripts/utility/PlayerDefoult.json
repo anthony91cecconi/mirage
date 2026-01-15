@@ -1,0 +1,8 @@
+{
+	"name" : "player",
+	"room" : "",
+	"posistion" :  "",
+	"bed_id": "",
+	"active": true,
+	"human_id": "player"
+}

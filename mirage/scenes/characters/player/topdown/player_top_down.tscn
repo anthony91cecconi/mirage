@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dnq4g613s56rg" path="res://scenes/characters/player/topdown/cameratopdown/camera_top_down_player.tscn" id="3_2veir"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0ix01"]
-radius = 37.1214
+radius = 23.1948
 
 [node name="PlayerTopDown" type="Node2D"]
 script = ExtResource("1_5mx8w")
@@ -17,13 +17,13 @@ collision_mask = 26
 zoom = Vector2(2, 2)
 
 [node name="RayCast2D" type="RayCast2D" parent="HumansTopDown"]
-position = Vector2(32, 33)
-target_position = Vector2(0, 45)
+position = Vector2(0, 9)
+target_position = Vector2(0, 14)
 
 [node name="Area2D" type="Area2D" parent="HumansTopDown" groups=["player"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HumansTopDown/Area2D"]
-position = Vector2(32, 34)
+position = Vector2(0, 7)
 shape = SubResource("CircleShape2D_0ix01")
 
 [connection signal="area_entered" from="HumansTopDown/Area2D" to="." method="_on_area_2d_area_entered"]

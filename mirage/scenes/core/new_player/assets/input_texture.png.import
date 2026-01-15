@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cac3aoqiaten4"
-path="res://.godot/imported/humans_head_top_down.png-1aaa57523b26e482d5251802b18178e2.ctex"
+uid="uid://bcweirw3vbs88"
+path="res://.godot/imported/input_texture.png-eb1b443521b31c51fabf78bf0c0d85b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/characters/model/humans_top_downn/assets/humans_head_top_down.png"
-dest_files=["res://.godot/imported/humans_head_top_down.png-1aaa57523b26e482d5251802b18178e2.ctex"]
+source_file="res://scenes/core/new_player/assets/input_texture.png"
+dest_files=["res://.godot/imported/input_texture.png-eb1b443521b31c51fabf78bf0c0d85b6.ctex"]
 
 [params]
 

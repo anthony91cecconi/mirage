@@ -17,7 +17,8 @@ signal time_tick(hours_left: float)
 signal time_over
 
 func _ready() -> void:
-	load_time()
+#	load_time()
+	pass
 
 func _process(delta: float) -> void:
 	if not running:
@@ -72,8 +73,9 @@ func resume_time() -> void:
 func load_time()-> void:
 	remaining_hours = LoadManager.load_time_second()
 
+#TODO: bloccato perche sono tornato in dietro da sistemare quando sara il momento
 func autosave_state() -> void:
-	SaveManager.save_time_second(remaining_hours)
+	#SaveManager.save_time_second(remaining_hours)
 	# Qui NON salvi tutto il gioco
 	# ma notifichi i manager interessati
 	# SaveManager.save_checkpoint(remaining_hours)

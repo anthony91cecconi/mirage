@@ -1,28 +1,59 @@
-[gd_scene load_steps=2 format=3 uid="uid://5cavhstqhq6d"]
+[gd_scene load_steps=4 format=3 uid="uid://5cavhstqhq6d"]
 
 [ext_resource type="Script" path="res://scenes/core/home/home.gd" id="1_3hxm3"]
+[ext_resource type="Texture2D" uid="uid://bsgbk0bhkr13r" path="res://scenes/core/home/background_home.svg" id="2_3x7aw"]
+[ext_resource type="PackedScene" uid="uid://c457o606wy6m5" path="res://utils/menu_buttons/menu_button_ui.tscn" id="3_1eegi"]
 
 [node name="Home" type="CanvasLayer"]
 script = ExtResource("1_3hxm3")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0357572, 0.0824303, 0.0342051, 1)
+texture = ExtResource("2_3x7aw")
+expand_mode = 1
 
 [node name="Buttons" type="VBoxContainer" parent="."]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -210.5
+offset_right = 210.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="NewGame" parent="Buttons" instance=ExtResource("3_1eegi")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Buttons/NewGame"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
+text = "NEW GAME"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="StartGame" type="Button" parent="Buttons"]
+[node name="LoadGame" parent="Buttons" instance=ExtResource("3_1eegi")]
 layout_mode = 2
-text = "START GAME"
 
-[connection signal="pressed" from="Buttons/StartGame" to="." method="_on_start_game_pressed"]
+[node name="Label" type="Label" parent="Buttons/LoadGame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "LOAD GAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Buttons/NewGame" to="." method="_on_new_game_pressed"]

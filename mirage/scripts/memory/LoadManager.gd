@@ -5,14 +5,16 @@ const SAVE_PATH := "res://temp/save.json"
 var data: Dictionary = {}   # Loaded data
 
 
+
 func _ready() -> void:
-	if not FileAccess.file_exists(SAVE_PATH):
-		D.warn("Save file not found. Nothing to load.")
-		return
-	
-	load_data()
+	#load_data()
+	pass
+
+func file_exists() -> bool:
+	return FileAccess.file_exists(SAVE_PATH)
 
 
+## PRE REFACTORING
 func load_data() -> void:
 	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
 	
@@ -59,28 +61,38 @@ func get_bed(bed_id) -> Dictionary:
 #------------------gestione CRUD player -----------------
 #-------------------------------------------------------
 func get_player() -> HumansInfo:
-	if not data.has("player"):
-		SaveManager.generate_defoult_player()
-	return HumansInfo.from_dict(data["player"])
+	return get_human("player")
 
 
 #-------------------------------------------------------
 #------------------gestione CRUD npc -----------------
 #-------------------------------------------------------
-func get_human(human_id) -> Dictionary:
+func get_human(human_id) -> HumansInfo:
+	load_data()
 	if not data.has("humans"):
-		return {"succes" : false}
-
+		return null
+	
 	for human in data["humans"]:
 		if human.get("human_id") == human_id:
-			return {"succes" : true,"human":human}
+			return HumansInfo.from_dict(human)
+	return null
 
-	return {"succes" : false}
 
 func get_all_humans() -> Array[HumansInfo]:
-	return data["humans"]
+	return  data["humans"]
 
+func get_all_humans_in_room(room:String) -> Array[HumansInfo]:
+	load_data()
+	var a : Array[HumansInfo] = []
+	for human_dict in data["humans"]:
+		if human_dict.get("room") == room:
 
+			var human_info := HumansInfo.from_dict(human_dict)
+			a.append(human_info)
+	return a
+	
+	
+	
 #-------------------------------------------------------
 #------------------gestione CRUD tempo -----------------
 #-------------------------------------------------------

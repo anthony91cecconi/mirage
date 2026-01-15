@@ -1,0 +1,53 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://b1nu7vhrc2qh1"]
+
+[ext_resource type="Texture2D" uid="uid://bj0q2j1cskm8y" path="res://scenes/characters/npc/sebastian/head/head-002.png" id="1_4k4wj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfdwp"]
+atlas = ExtResource("1_4k4wj")
+region = Rect2(128, 128, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfdwp")
+}],
+"loop": true,
+"name": &"down_idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"down_walk",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"left_idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"left_walk",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"right_idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"right_walk",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"top_idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"top_walk",
+"speed": 5.0
+}]

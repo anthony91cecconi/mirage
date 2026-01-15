@@ -1,36 +1,24 @@
 {
-	"entities": {
-		"beds": [
-			{
-				"NPC_ID": "player",
-				"bed_active": true,
-				"bed_id": "001",
-				"brocken": false,
-				"mental_health_delta": 5,
-				"sleep_recovery": 5
+	"humans": [
+		{
+			"bed_id": "001",
+			"human_active": true,
+			"human_id": "player",
+			"human_model": {
+				"color": "1aff00ff",
+				"head_color_frames": "res://scenes/characters/npc/mattias/head_color.tres",
+				"head_frames": "res://scenes/characters/npc/mattias/head.tres",
+				"helmet": false,
+				"helmet_color_frames": "res://scenes/characters/model/humans_top_downn/assets/helmets/helmet-002/helmet_color-002.tres",
+				"helmet_frames": "res://scenes/characters/model/humans_top_downn/assets/helmets/helmet-002/helmet-002.tres",
+				"weapon": false
 			},
-			{
-				"NPC_ID": "",
-				"bed_active": false,
-				"bed_id": "002",
-				"brocken": false,
-				"mental_health_delta": 0,
-				"sleep_recovery": 0
-			}
-		]
-	},
-	"player": {
-		"bed_id": "001",
-		"human_active": true,
-		"human_id": "player",
-		"human_name": "player di prova",
-		"position": {
-			"x": 0,
-			"y": 0
-		},
-		"room": ""
-	},
-	"stats": {
-		"time": 323992.999214008
-	}
+			"human_name": "anthony",
+			"position": {
+				"x": 0,
+				"y": 0
+			},
+			"room": ""
+		}
+	]
 }

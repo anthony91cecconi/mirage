@@ -42,5 +42,6 @@ grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="pressed" from="VBoxContainer/Sleep" to="." method="_on_sleep_pressed"]
 [connection signal="pressed" from="VBoxContainer/Assign" to="." method="_on_assign_pressed"]
 [connection signal="pressed" from="VBoxContainer/SelfAssign" to="." method="_on_self_assign_pressed"]

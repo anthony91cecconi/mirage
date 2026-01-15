@@ -7,6 +7,7 @@ var position : Vector2
 var bed_id : String
 var human_active : bool
 var human_id : String
+var human_model: HumanModel
 
 func _init(
 	_name: String,
@@ -14,7 +15,8 @@ func _init(
 	_position: Vector2,
 	_bed_id: String,
 	_active: bool,
-	_human_id : String
+	_human_id : String,
+	_human_model : HumanModel
 ):
 	human_name = _name
 	room = _room
@@ -22,18 +24,20 @@ func _init(
 	bed_id = _bed_id
 	human_active = _active
 	human_id = _human_id
+	human_model = _human_model
 
-static func to_dict(human: HumansInfo) -> Dictionary:
+func to_dict() -> Dictionary:
 	return {
-		"human_name": human.human_name,
-		"room": human.room,
+		"human_name": human_name,
+		"room": room,
 		"position": {
-			"x": human.position.x,
-			"y": human.position.y
+			"x": position.x,
+			"y": position.y
 		},
-		"bed_id": human.bed_id,
-		"human_active": human.human_active,
-		"human_id": human.human_id
+		"bed_id": bed_id,
+		"human_active": human_active,
+		"human_id": human_id,
+		"human_model": human_model.to_dict()
 	}
 
 
@@ -52,5 +56,6 @@ static func from_dict(d: Dictionary) -> HumansInfo:
 		pos,
 		d.get("bed_id", ""),
 		d.get("human_active", true),
-		d.get("human_id", "")
+		d.get("human_id", ""),
+		HumanModel.from_dict(d.get("human_model","{}"))
 	)

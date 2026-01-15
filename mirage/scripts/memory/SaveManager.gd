@@ -8,13 +8,7 @@ var data: Dictionary = {}
 
 
 func _ready() -> void:
-	D.normal("avvio Savemanager")
-	if not file_exists():
-		D.warn("Save file not found. create new file.")
-		save()
-	else:
-		D.success("Save file found. load info.")
-		load_save()
+	pass
 
 
 func file_exists() -> bool:
@@ -79,7 +73,7 @@ func save_bed(bed_data: BedInfo) -> void:
 	load_save()
 	
 func bed_remuve_old_human(human : HumansInfo) -> void:
-	print("------------",human.bed_id,human.bed_id.is_empty())
+	print("human.bed_id",human)
 	if human.bed_id.is_empty():
 		return
 	var bed: BedInfo = LoadManager.get_bed(human.bed_id).bed
@@ -130,37 +124,31 @@ func save_all_beds_in_scene() -> void:
 #-------------------------------------------------------
 
 func save_player(player: HumansInfo) -> void:
-	if not data.has("player"):
-		data["player"] = {}	
-	data["player"] = HumansInfo.to_dict(player) 
-	save()
-
-func generate_defoult_player() -> void:
-	save_player(HumansInfo.new("player di prova","",Vector2(0,0),"",true,"player"))
+	save_human(player.to_dict())
 
 
 #-------------------------------------------------------
 #------------------gestione CRUD NPC -----------------
 #-------------------------------------------------------
 
-func save_human(human_data: HumansInfo) -> void:
+func save_human(human_data: Dictionary) -> void:
 	if not human_data.has("human_id"):
 		D.error("human has no id.")
 		return
 		
 	if not data.has("humans"):
-		data["humans"] = {}
+		data["humans"] = []
 		
 	var humans: Array = data["humans"]
 
 	for i in range(humans.size()):
 		if humans[i].get("humans_id") == human_data["humans_id"]:
-			humans[i] = HumansInfo.to_dict(human_data)
+			humans[i] = human_data
 			data["humans"] = humans
 			save()
 			return
 
-	humans.append(HumansInfo.to_dict(human_data))
+	humans.append(human_data)
 	data["humans"] = humans
 	save()
 

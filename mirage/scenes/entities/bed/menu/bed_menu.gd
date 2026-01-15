@@ -40,3 +40,7 @@ func save()-> void:
 
 func _on_assign_pressed() -> void:
 	open_bed_ui()
+
+#TODO : deve comunicare con il manager del lett, questo perche sia gli NPC che il player dovranno ricevere effetti e non puo essere il compito della scena fare questo
+func _on_sleep_pressed() -> void:
+	pass # Replace with function body.

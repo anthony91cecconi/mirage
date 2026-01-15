@@ -1,0 +1,43 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://k6n3ym3yv7kd"]
+
+[ext_resource type="Texture2D" uid="uid://ck4hlaklxrs5x" path="res://scenes/characters/model/humans_top_downn/assets/helmets/helmet-002/helmet_color-002.png" id="1_6vfg1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fio8l"]
+atlas = ExtResource("1_6vfg1")
+region = Rect2(128, 128, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fio8l")
+}],
+"loop": true,
+"name": &"down_idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"down_walk",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"left_idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"left_walk",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"top_idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"top_walk",
+"speed": 5.0
+}]

@@ -1,21 +1,22 @@
 extends Node2D
 
-@export var head_no_helmet_path: String = ""
-
 @onready var human: HumansTopDown = $HumansTopDown
 @onready var camera: Camera2D = $CameraTopDownPlayer
 
-func _ready():
-	_setup_head()
 
-func _process(delta):
+func _ready() -> void:
+	human.npc = false
+	print("PLAYER READY")
+
+
+func _process(delta: float) -> void:
 	_handle_input()
 
-# =========================
-# INPUT
-# =========================
 
-func _handle_input():
+# =========================
+# INPUT MOVIMENTO
+# =========================
+func _handle_input() -> void:
 	var dir := Vector2(
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
 		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -23,27 +24,32 @@ func _handle_input():
 
 	human.move_dir = dir.normalized()
 
-# =========================
-# TESTA SENZA CASCO
-# =========================
-
-func _setup_head():
-	if head_no_helmet_path == "":
-		human.has_helmet = true
-		return
-
-	if not ResourceLoader.exists(head_no_helmet_path):
-		human.has_helmet = true
-		return
-
-	var frames := load(head_no_helmet_path)
-	if frames is SpriteFrames:
-		human.set_head_override(frames)
+	if dir == Vector2.ZERO:
+		print("INPUT → STOP")
 	else:
-		human.has_helmet = true
+		print("INPUT → MOVE:", human.move_dir)
 
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	print(area.get_groups())
-	if area.is_in_group("entities"):
-		print(area.get_parent())
+# =========================
+# ESEMPI USO ITEM
+# =========================
+func equip_weapon():
+	human.set_weapon(true)
+
+func unequip_weapon():
+	human.set_weapon(false)
+
+func remove_helmet():
+	human.set_helmet(false)
+
+func wear_helmet():
+	human.set_helmet(true)
+
+func setup_from_info(human_info: HumansInfo) -> void:
+	print("siamo qui")
+	human.setup_from_info(human_info)
+	print("siamo la")
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact"):
+		print("Premuto E")
