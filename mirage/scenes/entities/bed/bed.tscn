@@ -35,6 +35,7 @@ position = Vector2(-9.5, 27.5)
 shape = SubResource("RectangleShape2D_6psg0")
 
 [node name="BedMenu" parent="." instance=ExtResource("3_5pr8x")]
+visible = false
 offset_left = 69.0
 offset_top = -8.0
 offset_right = 69.0

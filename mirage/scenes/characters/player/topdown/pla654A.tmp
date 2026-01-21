@@ -7,10 +7,10 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_0ix01"]
 radius = 23.1948
 
-[node name="PlayerTopDown" type="Node2D" groups=["player"]]
+[node name="PlayerTopDown" type="Node2D"]
 script = ExtResource("1_5mx8w")
 
-[node name="HumansTopDown" parent="." groups=["player"] instance=ExtResource("2_ybk2y")]
+[node name="HumansTopDown" parent="." instance=ExtResource("2_ybk2y")]
 collision_mask = 26
 
 [node name="CameraTopDownPlayer" parent="HumansTopDown" instance=ExtResource("3_2veir")]

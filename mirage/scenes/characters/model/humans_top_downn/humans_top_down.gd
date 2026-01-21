@@ -5,90 +5,108 @@ class_name HumansTopDown
 # CONFIG
 # =========================
 @export var speed: float = 120.0
-
-# =========================
-# NODES
-# =========================
-@onready var body: AnimatedSprite2D =$BodyContainer/Body
-@onready var body_color: AnimatedSprite2D =$BodyContainer/Body2
-
-@onready var helmet_sprite_color: AnimatedSprite2D =$HelmetContainer/Helmet2
-@onready var helmet_sprite: AnimatedSprite2D =$HelmetContainer/Helmet
-@export var helmet_frames: SpriteFrames
-@export var helmet_color_frames: SpriteFrames
-
-@onready var head_sprite_color: AnimatedSprite2D =$HeadContainer/Head2
-@onready var head_sprite: AnimatedSprite2D =$HeadContainer/Head
-@export var head_frames: SpriteFrames
-@export var head_color_frames: SpriteFrames
-
-var human_info : HumansInfo
-
-# =========================
-# STATE BOOL
-# =========================
+@export var helmet_bool : bool = true
 @export var npc: bool = false
 
-var idle: bool = true
-var walk: bool = false
+@onready var body : BodyContainer = $BodyContainer
+@onready var helmet : HelmetContainer = $HelmetContainer
+@onready var head : HeadContainer = $HeadContainer
 
-var top: bool = false
-var down: bool = true
-var left: bool = false
-var right: bool = false
+var human_info: HumansInfo
+var color : Color = Color.WHITE
 
-@export var weapon: bool = false
-@export var helmet: bool = true
-
-@export var color: Color
 # =========================
-# MOVEMENT
+# ENUM DIREZIONI
 # =========================
+enum LookDir {
+	DOWN,
+	DOWN_LEFT,
+	LEFT,
+	TOP_LEFT,
+	TOP,
+	TOP_RIGHT,
+	RIGHT,
+	DOWN_RIGHT
+}
+
+# =========================
+# STATE
+# =========================
+var idle := true
+var walk := false
 var move_dir: Vector2 = Vector2.ZERO
-	
+
+var body_dir: LookDir = LookDir.DOWN
+var helmet_dir: LookDir = LookDir.DOWN
+var last_move_dir: LookDir = LookDir.DOWN
+
+# =========================================================
+# MODEL
+# =========================================================
 func create_model() -> HumanModel:
+	#print("[HumansTopDown] create_model")
 	return HumanModel.new(
-		helmet_frames,
-		helmet_color_frames,
-		head_frames,
-		head_color_frames,
-		weapon,
-		helmet,
+		helmet.helmet_normal_frames,
+		helmet.helmet_normal_color_frames,
+		head.head_normal_frames,
+		head.head_normal_color_frames,
+		false, # weapon TODO
+		helmet_bool,
 		color
 	)
 
-func set_model(_model : HumanModel) -> void:
-	human_info.human_model = _model
+func set_model(model: HumanModel) -> void:
+	#print("[HumansTopDown] set_model")
+	human_info.human_model = model
 	load_from_model()
-	
-func load_from_model()-> void:
-		helmet_frames = human_info.human_model.helmet_frames
-		helmet_color_frames = human_info.human_model.helmet_color_frames
-		head_frames = human_info.human_model.head_frames
-		head_color_frames = human_info.human_model.head_color_frames
-		weapon = human_info.human_model.weapon
-		helmet = human_info.human_model.helmet
-		color = human_info.human_model.color
-		apply_assets()
-		
-func apply_assets() -> void:
-	if helmet:
-		_apply_helmet_assets()
-	else:
-		_apply_head_assets()
-	
-	_apply_color()
-	
-	
-	
 
+func load_from_model() -> void:
+	#print("[HumansTopDown] load_from_model")
+	var m := human_info.human_model
+	if m == null:
+		#print(" model is NULL")
+		return
+
+	helmet.helmet_normal_frames = m.helmet_normal_frames
+	helmet.helmet_normal_color_frames = m.helmet_normal_color_frames
+	head.head_normal_frames = m.head_normal_frames
+	head.head_normal_color_frames = m.head_normal_color_frames
+
+	helmet_bool = m.helmet
+	color = m.color
+
+	apply_assets()
+
+func apply_assets() -> void:
+	#print("[HumansTopDown] apply_assets helmet:", helmet_bool)
+
+	# ✅ applica SEMPRE gli asset
+	helmet.apply_assets()
+	head.apply_assets()
+
+	# ✅ poi decidi cosa mostrare
+	if helmet_bool:
+		helmet.show()
+		head.hide()
+	else:
+		helmet.hide()
+		head.show()
+
+	_apply_color()
+
+
+# =========================================================
+# PROCESS
+# =========================================================
 func _physics_process(delta: float) -> void:
 	_update_movement()
-	if not npc: 
-		_update_direction_from_mouse()
+	_update_body_direction()
+
+	if not npc:
+		_update_helmet_from_mouse()
+
 	_update_idle_walk()
 	_play_animation()
-
 
 # =========================
 # MOVIMENTO
@@ -97,175 +115,127 @@ func _update_movement() -> void:
 	velocity = move_dir * speed
 	move_and_slide()
 
+# =========================
+# BODY DIRECTION
+# =========================
+func _update_body_direction() -> void:
+	if move_dir == Vector2.ZERO:
+		body_dir = last_move_dir
+		return
+
+	body_dir = _vector_to_dir(move_dir)
+	last_move_dir = body_dir
 
 # =========================
-# DIREZIONE DAL MOUSE
+# HELMET FROM MOUSE
 # =========================
-func _update_direction_from_mouse() -> void:
-	var mouse_pos := get_global_mouse_position()
-	var dir := mouse_pos - global_position
+func _update_helmet_from_mouse() -> void:
+	var dir := get_global_mouse_position() - global_position
+	var wanted := _vector_to_dir(dir)
+	helmet_dir = _limit_helmet_dir(wanted, body_dir)
+	helmet.set_look_dir(helmet_dir)
 
-	# reset direzioni
-	top = false
-	down = false
-	left = false
-	right = false
 
-	if abs(dir.x) > abs(dir.y):
-		if dir.x > 0:
-			right = true
-			print("DIR → RIGHT")
-		else:
-			left = true
-			print("DIR → LEFT")
-	else:
-		if dir.y > 0:
-			down = true
-			print("DIR → DOWN")
-		else:
-			top = true
-			print("DIR → TOP")
+# =========================
+# LIMIT HELMET
+# =========================
+func _limit_helmet_dir(wanted: LookDir, body_allow: LookDir) -> LookDir:
+	var allowed := {
+		LookDir.TOP: [LookDir.TOP, LookDir.TOP_LEFT, LookDir.TOP_RIGHT, LookDir.LEFT, LookDir.RIGHT],
+		LookDir.DOWN: [LookDir.DOWN, LookDir.DOWN_LEFT, LookDir.DOWN_RIGHT, LookDir.LEFT, LookDir.RIGHT],
+		LookDir.LEFT: [LookDir.LEFT, LookDir.TOP_LEFT, LookDir.DOWN_LEFT, LookDir.TOP, LookDir.DOWN],
+		LookDir.RIGHT: [LookDir.RIGHT, LookDir.TOP_RIGHT, LookDir.DOWN_RIGHT, LookDir.TOP, LookDir.DOWN],
+		LookDir.TOP_LEFT: [LookDir.LEFT, LookDir.TOP_LEFT, LookDir.TOP, LookDir.TOP_RIGHT, LookDir.DOWN_LEFT],
+		LookDir.TOP_RIGHT: [LookDir.RIGHT, LookDir.TOP, LookDir.TOP_RIGHT, LookDir.DOWN_LEFT, LookDir.DOWN_RIGHT],
+		LookDir.DOWN_LEFT: [LookDir.DOWN_LEFT, LookDir.LEFT, LookDir.DOWN, LookDir.TOP_LEFT, LookDir.DOWN_RIGHT],
+		LookDir.DOWN_RIGHT: [LookDir.DOWN_RIGHT, LookDir.RIGHT, LookDir.DOWN, LookDir.DOWN_LEFT, LookDir.TOP_RIGHT]
+	}
 
+	if body_allow in allowed and wanted in allowed[body_allow]:
+		return wanted
+
+	return body_allow
 
 # =========================
 # IDLE / WALK
 # =========================
 func _update_idle_walk() -> void:
-	if move_dir == Vector2.ZERO:
-		idle = true
-		walk = false
-	else:
-		idle = false
-		walk = true
-
+	idle = move_dir == Vector2.ZERO
+	walk = not idle
 
 # =========================
-# ANIMATION NAME BUILDER
+# ANIMATION NAME
 # =========================
-func _build_animation_name() -> String:
-	var parts: Array[String] = []
+func _build_animation_name(dir: LookDir) -> String:
+	var base :String= [
+		"down","down_left","left","top_left",
+		"top","top_right","right","down_right"
+	][dir]
 
-	# DIREZIONE (prioritaria)
-	if top:
-		parts.append("top")
-	elif down:
-		parts.append("down")
-	elif left:
-		parts.append("left")
-	elif right:
-		parts.append("right")
-
-	# STATO
 	if walk:
-		parts.append("walk")
+		base += "_walk" 
 	else:
-		parts.append("idle")
+		base += "_idle"
 
-	# ITEM (opzionale)
-	if weapon:
-		parts.append("weapon")
+	return base
 
-	var anim_name := "_".join(parts)
-
-	return anim_name
-
+func _flip(dir: LookDir) -> bool:
+	return dir in [LookDir.TOP_RIGHT, LookDir.RIGHT, LookDir.DOWN_RIGHT]
 
 # =========================
-# PLAY ANIMATIONS
+# PLAY
 # =========================
 func _play_animation() -> void:
-	var anim := _build_animation_name()
+	var anim_body := _build_animation_name(body_dir)
+	var anim_head := _build_animation_name(helmet_dir)
 
-	# BODY (sempre attivo)
-	if body.animation != anim:
-		print("PLAY BODY →", anim)
-		body.play(anim)
-		body_color.play(anim)
+	#print("[HumansTopDown] play", anim_body, anim_head)
 
-	if helmet:
-		# --- HELMET ON ---
-		helmet_sprite.visible = true
-		helmet_sprite_color.visible = true
-
-		head_sprite.visible = false
-		head_sprite_color.visible = false
-
-		if helmet_sprite.animation != anim:
-			print("PLAY HELMET →", anim)
-			helmet_sprite.play(anim)
-			helmet_sprite_color.play(anim)
-
-	else:
-		# --- HEAD ON ---
-		head_sprite.visible = true
-		head_sprite_color.visible = true
-
-		helmet_sprite.visible = false
-		helmet_sprite_color.visible = false
-
-		if head_sprite.animation != anim:
-			print("PLAY HEAD →", anim)
-			head_sprite.play(anim)
-			head_sprite_color.play(anim)
-
-
+	body.play(anim_body, _flip(body_dir))
+	head.play(anim_head, _flip(helmet_dir))
+	helmet.play(anim_head, _flip(helmet_dir), helmet_bool)
 
 # =========================
-# SETTERS PUBBLICI
+# UTILS
 # =========================
-func set_weapon(value: bool) -> void:
-	weapon = value
+func _vector_to_dir(v: Vector2) -> LookDir:
+	var angle := rad_to_deg(v.angle())
+	if angle < 0: angle += 360
 
+	if angle < 22.5 or angle >= 337.5: return LookDir.RIGHT
+	elif angle < 67.5: return LookDir.DOWN_RIGHT
+	elif angle < 112.5: return LookDir.DOWN
+	elif angle < 157.5: return LookDir.DOWN_LEFT
+	elif angle < 202.5: return LookDir.LEFT
+	elif angle < 247.5: return LookDir.TOP_LEFT
+	elif angle < 292.5: return LookDir.TOP
+	else: return LookDir.TOP_RIGHT
+
+# =========================
+# SETTERS
+# =========================
 func set_helmet(value: bool) -> void:
-	helmet = value
-	_play_animation()
-
-func set_color(_color: Color) -> void:
-	color = _color
-	_apply_color()
-	
-	
-func _apply_color() -> void:
-	body_color.modulate = color
-	helmet_sprite_color.modulate = color
-
-#-----set head
-func _apply_head_assets() -> void:
-	print("--------------", create_model() )
-	if head_frames:
-		head_sprite.sprite_frames = head_frames
-	if head_color_frames:
-		head_sprite_color.sprite_frames = head_color_frames
-	
-
-func _set_head_assets(new :SpriteFrames) -> void:
-	head_frames = new
-	_apply_head_assets()
-	
-func _set_head_color_assets(new :SpriteFrames) -> void:
-	head_color_frames = new
-	_apply_head_assets()
-
-#------ set helmet
-func _apply_helmet_assets() -> void:
-	if helmet_frames:
-		helmet_sprite.sprite_frames = helmet_frames
-	if helmet_color_frames:
-		helmet_sprite_color.sprite_frames = helmet_color_frames
-
-func _set_helmet_assets(new :SpriteFrames,new_color :SpriteFrames) -> void:
-	helmet_frames = new
-	helmet_color_frames = new_color
-	_apply_helmet_assets()
-
-func setup_from_info(info: HumansInfo) -> void:
-	global_position = info.position
-	npc = info.human_id != "player"
-	human_info = info
-	if info.human_model != null:
-		set_model(info.human_model)
+	#print("[HumansTopDown] set_helmet", value)
+	helmet_bool = value
 	apply_assets()
 
-func set_story_position(v : Vector2) -> void:
-	human_info.position = v
-	
+func set_color(c: Color) -> void:
+	#print("[HumansTopDown] set_color", c)
+	color = c
+	_apply_color()
+
+func _apply_color() -> void:
+	body.apply_color(color)
+	helmet.helmet_sprite_color.modulate = color
+
+# =========================
+# SETUP
+# =========================
+func setup_from_info(info: HumansInfo) -> void:
+	#print("[HumansTopDown] setup_from_info")
+	human_info = info
+	global_position = info.position
+	npc = info.human_id != "player"
+
+	if info.human_model:
+		set_model(info.human_model)

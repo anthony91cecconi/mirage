@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbjoa41k3xh15"
-path="res://.godot/imported/helmet_color-001.png-09c772bf428b43fb8e741ada9d6617ef.ctex"
+uid="uid://dyg3womv53d6v"
+path="res://.godot/imported/helmet_armed-001.png-67a6925df9d88f4bcd631a42f6210fb6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/characters/model/humans_top_downn/assets/helmets/helmet-001/helmet_color-001.png"
-dest_files=["res://.godot/imported/helmet_color-001.png-09c772bf428b43fb8e741ada9d6617ef.ctex"]
+source_file="res://scenes/characters/model/humans_top_downn/assets/helmets/helmet-001/helmet_armed-001.png"
+dest_files=["res://.godot/imported/helmet_armed-001.png-67a6925df9d88f4bcd631a42f6210fb6.ctex"]
 
 [params]
 

@@ -83,7 +83,7 @@ func _on_hair_left_pressed() -> void:
 
 	var frames := all_hair_frames[current_hair_index]
 
-	human._set_head_color_assets(frames)
+	human.head.set_color_frames(frames)
 
 
 
@@ -97,7 +97,7 @@ func _on_hair_right_pressed() -> void:
 
 	var frames := all_hair_frames[current_hair_index]
 
-	human._set_head_color_assets(frames)
+	human.head.set_color_frames(frames)
 
 
 
@@ -111,7 +111,7 @@ func _on_face_left_pressed() -> void:
 
 	var frames := all_face_frames[current_face_index]
 
-	human._set_head_assets(frames)
+	human.head.set_frames(frames)
 
 
 
@@ -125,7 +125,8 @@ func _on_face_right_pressed() -> void:
 
 	var frames := all_face_frames[current_face_index]
 
-	human._set_head_assets(frames)
+	human.head.set_frames(frames)
+
 
 
 
@@ -141,7 +142,8 @@ func _on_helmet_left_pressed() -> void:
 	var frames := all_helm_frames[current_helm_index]
 	var frames_color := all_helm_color_frames[current_helm_index]
 
-	human._set_helmet_assets(frames,frames_color)
+	human.helmet.set_assets(frames, frames_color)
+
 
 
 func _on_helmet_right_pressed() -> void:
@@ -154,8 +156,8 @@ func _on_helmet_right_pressed() -> void:
 
 	var frames := all_helm_frames[current_helm_index]
 	var frames_color := all_helm_color_frames[current_helm_index]
-
-	human._set_helmet_assets(frames,frames_color)
+	human.helmet.set_assets(frames, frames_color)
+	
 
 
 func _on_save_pressed() -> void:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cy5x085vwo2gk"
-path="res://.godot/imported/body_color.png-49b9b18f8a68d453697e9674fc12997b.ctex"
+uid="uid://cn6o5ux68bque"
+path="res://.godot/imported/body_normal_color_male.png-254284440b512b130f36967a80c33cad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/characters/model/humans_top_downn/assets/body/body_color.png"
-dest_files=["res://.godot/imported/body_color.png-49b9b18f8a68d453697e9674fc12997b.ctex"]
+source_file="res://scenes/characters/model/humans_top_downn/assets/body/male/body_normal_color_male.png"
+dest_files=["res://.godot/imported/body_normal_color_male.png-254284440b512b130f36967a80c33cad.ctex"]
 
 [params]
 
