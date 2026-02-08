@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnq4g613s56rg"]
+
+[ext_resource type="Script" path="res://scenes/characters_old/player/topdown/cameratopdown/camera_top_down_player.gd" id="1_0arn1"]
+
+[node name="CameraTopDownPlayer" type="Camera2D"]
+script = ExtResource("1_0arn1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Time" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -158.0
+offset_bottom = 56.0
+grow_horizontal = 0
+horizontal_alignment = 1
+vertical_alignment = 1

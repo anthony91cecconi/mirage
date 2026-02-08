@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://1gik1ge76mfm"]
+
+[ext_resource type="Texture2D" uid="uid://basosmvdjl0lh" path="res://scenes/core/main/assets/img/logo.jpeg" id="1_8mflh"]
+[ext_resource type="Script" path="res://scenes/core/main/main.gd" id="1_ht535"]
+
+[node name="Main" type="CanvasLayer"]
+script = ExtResource("1_ht535")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_8mflh")
+expand_mode = 1

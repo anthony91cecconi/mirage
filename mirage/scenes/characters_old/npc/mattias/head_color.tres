@@ -1,0 +1,43 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dyicg2nvy58is"]
+
+[ext_resource type="Texture2D" uid="uid://cfrwdvf1n8jlq" path="res://scenes/characters_old/npc/mattias/head_color/head_color-001.png" id="1_lkj17"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35nfq"]
+atlas = ExtResource("1_lkj17")
+region = Rect2(128, 128, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35nfq")
+}],
+"loop": true,
+"name": &"down_idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"down_walk",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"left_idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"left_walk",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"top_idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"top_walk",
+"speed": 5.0
+}]

@@ -1,8 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://5cavhstqhq6d"]
+[gd_scene load_steps=8 format=3 uid="uid://5cavhstqhq6d"]
 
 [ext_resource type="Script" path="res://scenes/core/home/home.gd" id="1_3hxm3"]
 [ext_resource type="Texture2D" uid="uid://bsgbk0bhkr13r" path="res://scenes/core/home/background_home.svg" id="2_3x7aw"]
 [ext_resource type="PackedScene" uid="uid://c457o606wy6m5" path="res://utils/menu_buttons/menu_button_ui.tscn" id="3_1eegi"]
+[ext_resource type="FontFile" uid="uid://bjy6l8i780tbl" path="res://assets/fonts/Bungee-Regular.ttf" id="4_x8mvh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ekxsu"]
+font = ExtResource("4_x8mvh")
+
+[sub_resource type="LabelSettings" id="LabelSettings_p3e4i"]
+font = ExtResource("4_x8mvh")
+
+[sub_resource type="LabelSettings" id="LabelSettings_d27wr"]
+font = ExtResource("4_x8mvh")
+font_size = 40
 
 [node name="Home" type="CanvasLayer"]
 script = ExtResource("1_3hxm3")
@@ -17,12 +28,14 @@ texture = ExtResource("2_3x7aw")
 expand_mode = 1
 
 [node name="Buttons" type="VBoxContainer" parent="."]
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = -1
+anchor_left = 0.318
+anchor_top = 0.202
+anchor_right = 0.683
 anchor_bottom = 1.0
-offset_left = -210.5
-offset_right = 210.5
+offset_left = -0.336029
+offset_top = 0.103989
+offset_right = 0.18396
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
@@ -39,6 +52,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "NEW GAME"
+label_settings = SubResource("LabelSettings_ekxsu")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -53,7 +67,41 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "LOAD GAME"
+label_settings = SubResource("LabelSettings_p3e4i")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="EXIT" parent="Buttons" instance=ExtResource("3_1eegi")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Buttons/EXIT"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "EXIT"
+label_settings = SubResource("LabelSettings_ekxsu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -53.0
+offset_top = 10.0
+offset_right = 53.0
+offset_bottom = 59.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "ASTRO STORY 
+MIRAGE"
+label_settings = SubResource("LabelSettings_d27wr")
+horizontal_alignment = 1
+
 [connection signal="pressed" from="Buttons/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Buttons/LoadGame" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="Buttons/EXIT" to="." method="_on_exit_pressed"]

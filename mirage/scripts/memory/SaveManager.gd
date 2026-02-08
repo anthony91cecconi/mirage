@@ -1,170 +1,126 @@
 extends Node
 
-#const SAVE_PATH := "user://save.json"
-const SAVE_PATH := "res://temp/save.json"
+# =================================================
+# CONFIG
+# =================================================
+const SAVE_PATH := "user://save.json"
+#const SAVE_PATH := "res://temp/save.json"
+const AUTOSAVE_INTERVAL := 20.0
+
+# =================================================
+# STATE
+# =================================================
+var _autosave_timer: Timer
 
 
-var data: Dictionary = {}
-
-
+# =================================================
+# LIFECYCLE
+# =================================================
 func _ready() -> void:
-	pass
+	_autosave_timer = Timer.new()
+	_autosave_timer.wait_time = AUTOSAVE_INTERVAL
+	_autosave_timer.one_shot = false
+	_autosave_timer.autostart = true
+	_autosave_timer.timeout.connect(_on_autosave_timeout)
+	add_child(_autosave_timer)
 
 
-func file_exists() -> bool:
-	return FileAccess.file_exists(SAVE_PATH)
+# =================================================
+# AUTOSAVE
+# =================================================
+func _on_autosave_timeout() -> void:
+	D.debug("autosalvataggio scattato")
+	autosave()
 
 
-func save() -> void:
-	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-	if file:
-		file.store_string(JSON.stringify(data, "\t")) 
-		file.close()
-		D.success("saved.")
-	else:
-		D.error("can not open file.")
+func request_save() -> void:
+	save_game()
 
 
-func load_save() -> void:
-	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
-	if file:
-		var content = file.get_as_text()
-		var result = JSON.parse_string(content)
-
-		if typeof(result) == TYPE_DICTIONARY:
-			data = result
-		else:
-			D.error("File File is invalid.")
-			data = {}
-			save()
-
-		file.close()
-	else:
-		D.error("can not open file.")
-
-
-#-------------------------------------------------------
-#------------------gestione CRUD letti -----------------
-#-------------------------------------------------------
-
-func save_bed(bed_data: BedInfo) -> void:
-	if not bed_data.has_id():
-		D.error("Bed has no id.")
-		return
-		
-	if not data.has("entities"):
-		data["entities"] = {}
-		
-	if not data["entities"].has("beds"):
-		data["entities"]["beds"] = []
-		
-	var beds: Array = data["entities"]["beds"]
-
-	for i in range(beds.size()):
-		if beds[i].get("bed_id") == bed_data["bed_id"]:
-			beds[i] = BedInfo.to_dict(bed_data)
-			data["entities"]["beds"] = beds
-			save()
-			return
-
-	beds.append(BedInfo.to_dict(bed_data))
-	data["entities"]["beds"] = beds
-	save()
-	load_save()
+# =================================================
+# SAVE
+# =================================================
+func save_game() -> void:
+	var data: Dictionary = {}
+	data["scene"] = get_tree().current_scene.scene_file_path
 	
-func bed_remuve_old_human(human : HumansInfo) -> void:
-	print("human.bed_id",human)
-	if human.bed_id.is_empty():
+	data["humans"] = HumansManager.use_for_save()
+	D.debug(str(data))
+	
+	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if file == null:
+		push_error("SaveManager: impossibile aprire file")
 		return
-	var bed: BedInfo = LoadManager.get_bed(human.bed_id).bed
-	bed.NPC_ID = ""
-	save_bed(bed)
-
-func delete_bed(bed_id) -> void:
-	if not data.has("entities"):
-		return
-
-	if not data["entities"].has("beds"):
-		return
-
-	var beds: Array = data["entities"]["beds"]
-
-	for i in range(beds.size()):
-		if beds[i].get("bed_id") == bed_id:
-			beds.remove_at(i)
-			data["entities"]["beds"] = beds
-			save()
-			return
-
-func save_all_beds_in_scene() -> void:
-	if not data.has("entities"):
-		data["entities"] = {}
-
-	if not data["entities"].has("beds"):
-		data["entities"]["beds"] = []
-
-	var beds_by_id := {}
-
-	for bed in data["entities"]["beds"]:
-		if bed.has("bed_id"):
-			beds_by_id[bed["bed_id"]] = bed
-
-	for node in get_tree().get_nodes_in_group("beds"):
-		if node.has_method("to_dict"):
-			var bd: Dictionary = node.to_dict()
-			if bd.has("bed_id"):
-				beds_by_id[bd["bed_id"]] = bd
-
-	data["entities"]["beds"] = beds_by_id.values()
-	save()
-
-
-#-------------------------------------------------------
-#------------------gestione CRUD player -----------------
-#-------------------------------------------------------
-
-func save_player(player: HumansInfo) -> void:
-	save_human(player.to_dict())
-
-
-#-------------------------------------------------------
-#------------------gestione CRUD NPC -----------------
-#-------------------------------------------------------
-
-func save_human(human_data: Dictionary) -> void:
-	if not human_data.has("human_id"):
-		D.error("human has no id.")
-		return
+	var json := JSON.stringify(data, "\t") # oppure "  " (2 spazi)
+	file.store_string(json)
+	file.close()
+	
 		
-	if not data.has("humans"):
-		data["humans"] = []
-		
-	var humans: Array = data["humans"]
 
-	for i in range(humans.size()):
-		if humans[i].get("humans_id") == human_data["humans_id"]:
-			humans[i] = human_data
-			data["humans"] = humans
-			save()
-			return
+func new_game() -> void:
+	# reset stato globale
+	HumansManager.clear()
 
-	humans.append(human_data)
-	data["humans"] = humans
-	save()
+	# ===============================
+	# PLAYER
+	# ===============================
+	var player_info := HumansInfo.new(
+		"namePlayer",
+		"Room47Infirmary",
+		"res://scenes/character/player/player.tscn",
+		Vector2(-296.12, 1597.60),
+		"player",
+		true
+	)
+
+	HumansManager.add_human(player_info)
+
+	# ===============================
+	# NPCs
+	# ===============================
+	randomize()
+
+	# rettangolo debug tracciato dal player
+	var min_x := 378.45
+	var max_x := 1002.73
+	var min_y := -105.64
+	var max_y := 434.46
+
+	for i in range(1, 1):
+		var npc_id := "npc-%03d" % i
+
+		var npc_pos := Vector2(
+			randf_range(min_x, max_x),
+			randf_range(min_y, max_y)
+		)
+
+		var npc_info := HumansInfo.new(
+			npc_id, # nome (provvisorio)
+			"Room47Infirmary",
+			"res://scenes/character/NPCS/base/npc_base.tscn",
+			npc_pos,
+			npc_id,
+			true
+		)
+
+		HumansManager.add_human(npc_info)
 
 
-#-------------------------------------------------------
-#------------------gestione CRUD tempo -----------------
-#-------------------------------------------------------
-func save_time_second(time: float) -> void:
-	if not data.has("stats"):
-		data["stats"] = {}	
-	data["stats"]["time"] = time
-	save()
+	HumansManager.add_human(player_info)
 
-func load_time_second() -> float:
-	if not data.has("stats") or not data["stats"].has("time"):
-		save_time_second(TimeManager.TOTAL_GAME_HOURS)
-		return TimeManager.TOTAL_GAME_HOURS
+	# costruiamo il save iniziale
+	var data: Dictionary = {}
+	data["scene"] = "res://scenes/levels/level_01.tscn"
+	data["humans"] = HumansManager.to_dict()
 
-	return data["stats"]["time"]
+	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if file == null:
+		push_error("SaveManager: impossibile creare nuovo save")
+		return
+
+	file.store_string(JSON.stringify(data))
+	file.close()
+
+
+func autosave() -> void:
+	save_game()

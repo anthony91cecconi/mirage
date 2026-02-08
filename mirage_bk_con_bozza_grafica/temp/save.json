@@ -1,0 +1,46 @@
+{
+	"entities": {
+		"beds": [
+			{
+				"NPC_ID": "",
+				"bed_active": false,
+				"bed_id": "001",
+				"brocken": false,
+				"mental_health_delta": 0,
+				"sleep_recovery": 0
+			},
+			{
+				"NPC_ID": "",
+				"bed_active": false,
+				"bed_id": "002",
+				"brocken": false,
+				"mental_health_delta": 0,
+				"sleep_recovery": 0
+			},
+			{
+				"NPC_ID": "",
+				"bed_active": false,
+				"bed_id": "003",
+				"brocken": false,
+				"mental_health_delta": 0,
+				"sleep_recovery": 0
+			},
+			{
+				"NPC_ID": "",
+				"bed_active": false,
+				"bed_id": "004",
+				"brocken": false,
+				"mental_health_delta": 0,
+				"sleep_recovery": 0
+			},
+			{
+				"NPC_ID": "",
+				"bed_active": false,
+				"bed_id": "005",
+				"brocken": false,
+				"mental_health_delta": 0,
+				"sleep_recovery": 0
+			}
+		]
+	}
+}

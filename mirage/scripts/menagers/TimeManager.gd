@@ -36,7 +36,7 @@ func _process(delta: float) -> void:
 
 	if _autosave_accumulator >= AUTOSAVE_INTERVAL_HOURS:
 		_autosave_accumulator -= AUTOSAVE_INTERVAL_HOURS
-		autosave_state()
+		#autosave_state()
 
 	time_tick.emit(remaining_hours)
 
@@ -72,11 +72,3 @@ func resume_time() -> void:
 
 func load_time()-> void:
 	remaining_hours = LoadManager.load_time_second()
-
-#TODO: bloccato perche sono tornato in dietro da sistemare quando sara il momento
-func autosave_state() -> void:
-	#SaveManager.save_time_second(remaining_hours)
-	# Qui NON salvi tutto il gioco
-	# ma notifichi i manager interessati
-	# SaveManager.save_checkpoint(remaining_hours)
-	pass
