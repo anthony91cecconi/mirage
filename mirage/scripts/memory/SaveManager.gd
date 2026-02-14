@@ -1,10 +1,11 @@
 extends Node
+var version : String = "0.0.1"
 
 # =================================================
 # CONFIG
 # =================================================
-const SAVE_PATH := "user://save.json"
-#const SAVE_PATH := "res://temp/save.json"
+#const SAVE_PATH := "user://save.json"
+const SAVE_PATH := "res://temp/save.json"
 const AUTOSAVE_INTERVAL := 20.0
 
 # =================================================
@@ -42,6 +43,7 @@ func request_save() -> void:
 # =================================================
 func save_game() -> void:
 	var data: Dictionary = {}
+	data["version"] = version
 	data["scene"] = get_tree().current_scene.scene_file_path
 	
 	data["humans"] = HumansManager.use_for_save()
@@ -66,15 +68,16 @@ func new_game() -> void:
 	# ===============================
 	var player_info := HumansInfo.new(
 		"namePlayer",
-		"Room47Infirmary",
+		"Infirmary",
 		"res://scenes/character/player/player.tscn",
 		Vector2(-296.12, 1597.60),
 		"player",
-		true
+		true,
+		""
 	)
-
+	D.debug("tentativo di aggiungere player del savemanager per nuova partita")
 	HumansManager.add_human(player_info)
-
+	
 	# ===============================
 	# NPCs
 	# ===============================
@@ -86,7 +89,7 @@ func new_game() -> void:
 	var min_y := -105.64
 	var max_y := 434.46
 
-	for i in range(1, 1):
+	for i in range(1,100):
 		var npc_id := "npc-%03d" % i
 
 		var npc_pos := Vector2(
@@ -96,21 +99,20 @@ func new_game() -> void:
 
 		var npc_info := HumansInfo.new(
 			npc_id, # nome (provvisorio)
-			"Room47Infirmary",
-			"res://scenes/character/NPCS/base/npc_base.tscn",
+			"Infirmary",
+			"res://scenes/character/NPCS/Robner/robner.tscn",
 			npc_pos,
 			npc_id,
-			true
+			true,
+			"res://scenes/character/NPCS/Robner/robner_bv.gd"
 		)
 
 		HumansManager.add_human(npc_info)
 
 
-	HumansManager.add_human(player_info)
-
 	# costruiamo il save iniziale
 	var data: Dictionary = {}
-	data["scene"] = "res://scenes/levels/level_01.tscn"
+	data["scene"] = ""
 	data["humans"] = HumansManager.to_dict()
 
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)

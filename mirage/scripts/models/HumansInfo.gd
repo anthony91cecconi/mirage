@@ -7,6 +7,7 @@ var scena : String
 var position : Vector2
 var human_id : String
 var active : bool
+var beavior : String
 
 func _init(
 	_name: String,
@@ -14,7 +15,8 @@ func _init(
 	_scena: String,
 	_position: Vector2,
 	_human_id : String,
-	_active
+	_active : bool,
+	_beavior : String
 ):
 	human_name = _name
 	room = _room
@@ -22,6 +24,7 @@ func _init(
 	position = _position
 	human_id = _human_id
 	active = _active
+	beavior = _beavior
 
 func to_dict() -> Dictionary:
 	return {
@@ -33,7 +36,8 @@ func to_dict() -> Dictionary:
 			"y": position.y
 		},
 		"human_id": human_id,
-		"active" : active
+		"active" : active,
+		"beavior" : beavior
 	}
 
 
@@ -52,8 +56,14 @@ static func from_dict(d: Dictionary) -> HumansInfo:
 		d.get("scena",""),
 		pos,
 		d.get("human_id", ""),
-		d.get("active",false)
+		d.get("active",false),
+		d.get("beavior")
 	)
 
 func set_position(pos: Vector2) -> void:
 	position = pos
+	D.debug(human_id +": set position completo, nuova position è: "+ str(position) )
+
+func set_room(_room : String) -> void:
+	room = _room
+	D.debug(human_id +": set room completo, nuova room è :" + room)

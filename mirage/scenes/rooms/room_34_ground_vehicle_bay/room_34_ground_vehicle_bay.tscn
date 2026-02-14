@@ -65,3 +65,7 @@ output_spwn = Vector2(-4594.07, 1221.46)
 position = Vector2(4640, 2728)
 to_room_id = "corridor"
 output_spwn = Vector2(-3708.43, 1714.07)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(3632, 688)
+zoom = Vector2(0.115, 0.16)

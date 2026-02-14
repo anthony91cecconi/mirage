@@ -34,7 +34,7 @@ sources/5 = SubResource("TileSetAtlasSource_73nlw")
 
 [node name="Room47Infirmary" type="Node2D"]
 script = ExtResource("1_sninb")
-room_id = "Room47Infirmary"
+room_id = "Infirmary"
 
 [node name="TileContainer" type="Node2D" parent="."]
 
@@ -54,7 +54,7 @@ output_spwn = Vector2(-4476.08, 1903.07)
 [node name="ScenesDoor2" parent="ExitDors" instance=ExtResource("3_dkn7c")]
 position = Vector2(624, -240)
 to_room_id = "corridor"
-output_spwn = Vector2(-4874.81, 1725.86)
+output_spwn = Vector2(-4805.67, 1913.05)
 
 [node name="ScenesDoor3" parent="ExitDors" instance=ExtResource("3_dkn7c")]
 position = Vector2(-48, 1736)

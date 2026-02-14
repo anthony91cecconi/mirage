@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://djkdwcfrculg2"]
+[gd_scene load_steps=3 format=3 uid="uid://djkdwcfrculg2"]
 
 [ext_resource type="Script" path="res://scenes/character/player/player.gd" id="1_j388i"]
-[ext_resource type="PackedScene" uid="uid://24d53y8jqm83" path="res://android/controls/canvas_layer.tscn" id="2_7iqvf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dcluo"]
 
@@ -19,5 +18,3 @@ offset_left = -9.0
 offset_top = -9.0
 offset_right = 8.0
 offset_bottom = 8.0
-
-[node name="CanvasLayer" parent="." instance=ExtResource("2_7iqvf")]

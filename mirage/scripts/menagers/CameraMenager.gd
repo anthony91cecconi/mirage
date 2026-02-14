@@ -1,12 +1,12 @@
 extends Node
 
-enum CameraType { PLAYER, ROOM, CORRIDOR }
+enum CameraType { PLAYER, ROOM, MAP }
 
 var player_camera : Camera2D
 var room_camera : Camera2D
-var corridor_camera : Camera2D
+var map_layer_camera : Camera2D
 
-var corridor := false
+var map_layer := false
 var room := false
 
 func change_camera(type: CameraType, c: Camera2D) -> void:
@@ -16,20 +16,20 @@ func change_camera(type: CameraType, c: Camera2D) -> void:
 			player_camera.make_current()
 		CameraType.ROOM:
 			room_camera = c
-		CameraType.CORRIDOR:
-			corridor_camera = c
+		CameraType.MAP:
+			map_layer_camera = c
 
-func corridor_swap() -> void:
-	if not RoomManager._corridor_instance:
-		RoomManager.corridor_init()
+func map_layer_swap() -> void:
+	if not RoomManager._map_layer_instance:
+		RoomManager.map_layer_init()
 	
-	if not is_instance_valid(corridor_camera):
-		RoomManager._corridor_instance.set_corridor_camera()
+	if not is_instance_valid(map_layer_camera):
+		RoomManager._map_layer_instance.set_map_layer_camera()
 
 	
-	if corridor and  is_instance_valid(corridor_camera):
-		corridor_camera.make_current()
-		D.debug("posizione corrido camera "+ str(corridor_camera.global_position))
+	if map_layer and  is_instance_valid(map_layer_camera):
+		map_layer_camera.make_current()
+		D.debug("posizione corrido camera "+ str(map_layer_camera.global_position))
 	elif player_camera:
 		player_camera.make_current()
 
@@ -43,8 +43,8 @@ func room_swap() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("map"):
-		corridor = !corridor
-		corridor_swap()
+		map_layer = !map_layer
+		map_layer_swap()
 
 	if event.is_action_pressed("map_room"):
 		room = !room

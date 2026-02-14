@@ -1,5 +1,9 @@
 extends Node
 
+signal hour_passed
+signal time_tick(hours_left: float)
+signal time_over
+
 # ---- CONFIG ----
 const TOTAL_GAME_HOURS := 365.0 * 24.0        # 8760
 const TOTAL_REAL_SECONDS := 90.0 * 60.0 * 60.0 # 324000
@@ -8,18 +12,16 @@ const GAME_HOURS_PER_SECOND := TOTAL_GAME_HOURS / TOTAL_REAL_SECONDS
 const AUTOSAVE_INTERVAL_HOURS := 1.0 # ogni ora di gioco
 
 # ---- STATE ----
-var remaining_hours: float 
+var remaining_hours: float = TOTAL_GAME_HOURS
 var _autosave_accumulator: float = 0.0
 var running := true
 
-# ---- SIGNALS ----
-signal time_tick(hours_left: float)
-signal time_over
-
+# ---- READY ----
 func _ready() -> void:
-#	load_time()
+	# load_time()
 	pass
 
+# ---- PROCESS ----
 func _process(delta: float) -> void:
 	if not running:
 		return
@@ -34,9 +36,12 @@ func _process(delta: float) -> void:
 		time_over.emit()
 		return
 
+	# 🔥 QUI ORA EMETTIAMO hour_passed
 	if _autosave_accumulator >= AUTOSAVE_INTERVAL_HOURS:
 		_autosave_accumulator -= AUTOSAVE_INTERVAL_HOURS
-		#autosave_state()
+		
+		hour_passed.emit()   # <--- QUESTO È IL PASSO DECISIVO
+		# autosave_state()
 
 	time_tick.emit(remaining_hours)
 
@@ -60,8 +65,6 @@ func get_formatted_time() -> String:
 
 	return "%d:%02d:%02d" % [h, m, s]
 
-
-
 func stop_time() -> void:
 	running = false
 
@@ -69,6 +72,5 @@ func resume_time() -> void:
 	running = true
 
 # ---- INTERNAL ----
-
 func load_time()-> void:
 	remaining_hours = LoadManager.load_time_second()

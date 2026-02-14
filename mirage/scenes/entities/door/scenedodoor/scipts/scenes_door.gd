@@ -2,18 +2,17 @@ extends Node2D
 class_name ScenesDoor
 @export var to_room_id :String
 @export var output_spwn : Vector2
+@export var id : int 
+var rng
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	if id == 0:
+		rng = RandomNumberGenerator.new()
+		rng.randomize()
+		id = rng.randi_range(0, 1000)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
+func _on_area_2d_body_entered(body: HumanBody) -> void:
 	D.debug("entrato nella porta")
 	D.debug(str(body.get_groups()))
 	D.debug("direzione "+to_room_id+" "+str(output_spwn))
@@ -29,9 +28,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			body.human_data.human_id,
 			to_room_id
 		)
+		body.update_info()
+		D.debug(body.human_data.human_id +" pos before free: "+ str(body.global_position))
+		D.debug(body.human_data.human_id +" pos before free: "+ str(body.human_data.position))
+
 		body.queue_free()
 		
-	#SaveManager.save_game()
 	if body.get_groups().has("player"):
 		RoomManager.change_room_id(to_room_id)
 	

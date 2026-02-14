@@ -1,4 +1,6 @@
 extends Node
+signal hour_passed
+
 
 # ---- CONFIG ----
 const TOTAL_GAME_HOURS := 365.0 * 24.0        # 8760

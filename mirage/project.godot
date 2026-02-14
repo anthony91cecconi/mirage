@@ -26,8 +26,8 @@ PlayerManager="*res://scripts/menagers/PlayerManager.gd"
 HumansManager="*res://scripts/menagers/HumansManager.gd"
 TimeManager="*res://scripts/menagers/TimeManager.gd"
 RoomManager="*res://scripts/menagers/RoomManager.gd"
-UiManager="*res://scripts/menagers/UiManager.gd"
 CameraMenager="*res://scripts/menagers/CameraMenager.gd"
+TouchControls="*res://android/controls/touch_controls.tscn"
 
 [display]
 
@@ -109,7 +109,7 @@ right={
 }
 log={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":true,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":76,"key_label":0,"unicode":76,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":76,"key_label":0,"unicode":108,"location":0,"echo":false,"script":null)
 ]
 }
 map={
@@ -119,7 +119,7 @@ map={
 }
 map_room={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":44,"key_label":0,"unicode":44,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":78,"key_label":0,"unicode":78,"location":0,"echo":false,"script":null)
 ]
 }
 

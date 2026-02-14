@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 func _on_new_game_pressed() -> void:
 	#get_tree().change_scene_to_file("res://scenes/core/new_player/new_player.tscn")
 	SaveManager.new_game()
-	get_tree().change_scene_to_file("res://scenes/rooms/room_47_Infirmary/room_47_infirmary.tscn")
+	RoomManager.change_room_id("Infirmary")
 
 
 func _on_exit_pressed() -> void:
