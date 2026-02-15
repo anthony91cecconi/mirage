@@ -51,7 +51,7 @@ func save_game() -> void:
 	
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file == null:
-		push_error("SaveManager: impossibile aprire file")
+		D.error("SaveManager: impossibile aprire file")
 		return
 	var json := JSON.stringify(data, "\t") # oppure "  " (2 spazi)
 	file.store_string(json)
@@ -73,7 +73,8 @@ func new_game() -> void:
 		Vector2(-296.12, 1597.60),
 		"player",
 		true,
-		""
+		"",
+		Skils.new("")
 	)
 	D.debug("tentativo di aggiungere player del savemanager per nuova partita")
 	HumansManager.add_human(player_info)
@@ -104,7 +105,8 @@ func new_game() -> void:
 			npc_pos,
 			npc_id,
 			true,
-			"res://scenes/character/NPCS/Robner/robner_bv.gd"
+			"res://scenes/character/NPCS/Robner/robner_bv.gd",
+			Skils.new(RoomManager.random_room_id())
 		)
 
 		HumansManager.add_human(npc_info)

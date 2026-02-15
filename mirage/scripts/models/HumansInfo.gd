@@ -8,6 +8,7 @@ var position : Vector2
 var human_id : String
 var active : bool
 var beavior : String
+var skils : Skils
 
 func _init(
 	_name: String,
@@ -16,7 +17,8 @@ func _init(
 	_position: Vector2,
 	_human_id : String,
 	_active : bool,
-	_beavior : String
+	_beavior : String,
+	_skils : Skils
 ):
 	human_name = _name
 	room = _room
@@ -25,8 +27,9 @@ func _init(
 	human_id = _human_id
 	active = _active
 	beavior = _beavior
+	skils = _skils
 
-func to_dict() -> Dictionary:
+func to_dict() -> Dictionary:	
 	return {
 		"human_name": human_name,
 		"room": room,
@@ -37,7 +40,8 @@ func to_dict() -> Dictionary:
 		},
 		"human_id": human_id,
 		"active" : active,
-		"beavior" : beavior
+		"beavior" : beavior,
+		"skils" : skils
 	}
 
 
@@ -57,7 +61,8 @@ static func from_dict(d: Dictionary) -> HumansInfo:
 		pos,
 		d.get("human_id", ""),
 		d.get("active",false),
-		d.get("beavior")
+		d.get("beavior"),
+		d.get("skils",{})
 	)
 
 func set_position(pos: Vector2) -> void:

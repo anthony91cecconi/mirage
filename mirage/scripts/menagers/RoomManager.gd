@@ -133,3 +133,14 @@ func enter_new_npc_in_room(id_npc :String , id_room : String) -> void:
 		_map_layer_instance.spawn_dinamic_human(id_npc)
 		D.debug(id_npc + " human instanziato dinamicamente in :"+MAP_LAYER_ID)
 		return
+
+func random_room_id() -> String:
+	if rooms.is_empty():
+		D.error("RoomManager: nessuna stanza disponibile")
+		return ""
+	
+	var keys := rooms.keys()
+	var random_index := randi() % keys.size()
+	return keys[random_index]
+
+	
