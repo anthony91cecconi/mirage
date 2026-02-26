@@ -29,6 +29,7 @@ var rooms: Dictionary = {
 	"HabitationComplex":"res://scenes/rooms/room_9_habitation_complex/room_9_habitation_complex.tscn",
 	"HabitationComplex2":"res://scenes/rooms/room_9_habitation_complex_2/room_9_habitation_complex_2.tscn",
 	"OfficerQuarters":"res://scenes/rooms/room_10_officer_quarters/room_10_officer_quarters.tscn",
+	"ComponentStorage":"res://scenes/rooms/room_24_component_storage/room_24_component_storage.tscn",
 	"PrimaryCargoHold":"res://scenes/rooms/room_25_primary_cargo_hold/room_25_primary_cargo_hold.tscn",
 	"FrontierResearchLab":"res://scenes/rooms/room_27_frontier_research_lab/room_27_frontier_research_lab.tscn",
 	"MonitorRoom":"res://scenes/rooms/room_28_monitor_room/room_28_monitor_room.tscn",
@@ -48,10 +49,12 @@ var rooms: Dictionary = {
 	"Memorial":"res://scenes/rooms/room_44_memorial/room_44_memorial.tscn",
 	"DeepSpaceObservatory":"res://scenes/rooms/room_45_deep_space_observatory/room_45_deep_space_observatory.tscn",
 	"LifeboatLaunchComplex":"res://scenes/rooms/room_46_lifeboat_launch_complex/room_46_lifeboat_launch_complex.tscn",
-	"Infirmary": "res://scenes/rooms/room_47_Infirmary/room_47_infirmary.tscn"
+	"Infirmary": "res://scenes/rooms/room_47_Infirmary/room_47_infirmary.tscn",
+	"test":"res://temp/tests.tscn"
 }
 
 func map_layer_init() -> void:
+	D.debug_order("@")
 	if _map_layer_instance != null:
 		return
 
@@ -73,15 +76,18 @@ func map_layer_init() -> void:
 # ROOM HELPERS (INVARIATI)
 # =================================================
 func has_room(room_id: String) -> bool:
+	D.debug_order("@")
 	return rooms.has(room_id)
 
 func get_room_path(room_id: String) -> String:
+	D.debug_order("@")
 	if not rooms.has(room_id):
 		D.error("RoomManager: room_id non trovato: %s" % room_id)
 		return ""
 	return rooms[room_id]
 
 func get_room_scene(room_id: String) -> PackedScene:
+	D.debug_order("@")
 	var path := get_room_path(room_id)
 	if path.is_empty():
 		return null
@@ -91,6 +97,7 @@ func get_room_scene(room_id: String) -> PackedScene:
 	return load(path) as PackedScene
 
 func get_room_id_from_path(path: String) -> String:
+	D.debug_order("@")
 	for room_id in rooms.keys():
 		if rooms[room_id] == path:
 			return room_id
@@ -101,9 +108,12 @@ func get_room_id_from_path(path: String) -> String:
 # REAL ROOM CHANGE (PORTE, GAMEPLAY)
 # =================================================
 func change_room_id(room_id: String) -> void:
+	D.debug_order("@")
+	Orchestrator.roomManager = false
 	current_room_id = room_id
 
 	var packed := get_room_scene(room_id)
+	#TODO:gestire la scena corrotta o mancante
 	if packed == null:
 		D.error("RoomManager: scena non trovata per id " + room_id)
 		return
@@ -112,6 +122,7 @@ func change_room_id(room_id: String) -> void:
 
 	_current_instance=get_tree().current_scene
 	D.debug("stanza cambiata con successo in " + room_id)
+	Orchestrator.roomManager = true
 
 
 
@@ -120,6 +131,7 @@ func change_room_id(room_id: String) -> void:
 # =================================================
 
 func enter_new_npc_in_room(id_npc :String , id_room : String) -> void:
+	D.debug_order("@")
 	if _current_instance == null:
 		_current_instance=get_tree().current_scene
 	D.debug("verifica se current_room_id sia popolato = "+current_room_id)
@@ -135,12 +147,14 @@ func enter_new_npc_in_room(id_npc :String , id_room : String) -> void:
 		return
 
 func random_room_id() -> String:
+	D.debug_order("@")
 	if rooms.is_empty():
 		D.error("RoomManager: nessuna stanza disponibile")
 		return ""
 	
 	var keys := rooms.keys()
 	var random_index := randi() % keys.size()
-	return keys[random_index]
-
+	if not keys[random_index] == MAP_LAYER_ID:
+		return keys[random_index]
+	return random_room_id()
 	

@@ -4,12 +4,15 @@ extends Node2D
 @onready var camera: Camera2D = $CameraTopDownPlayer
 
 func _ready() -> void:
+	D.debug_order("@")
 	human.npc = false
 
 func _process(delta: float) -> void:
+	D.debug_order("@")
 	_handle_movement()
 
 func _handle_movement() -> void:
+	D.debug_order("@")
 	if PlayerManager.lock_movement:
 		human.move_dir = Vector2.ZERO
 		return

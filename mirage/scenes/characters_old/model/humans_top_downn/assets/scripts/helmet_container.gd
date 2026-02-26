@@ -14,9 +14,11 @@ class_name HelmetContainer
 
 
 func _ready() -> void:
+	D.debug_order("@")
 	_setup_light()
 
 func _setup_light() -> void:
+	D.debug_order("@")
 	if not light:
 		return
 
@@ -27,6 +29,7 @@ func _setup_light() -> void:
 
 
 func apply_assets() -> void:
+	D.debug_order("@")
 	#print("[HelmetContainer] apply_assets")
 	if helmet_normal_frames:
 		helmet_sprite.sprite_frames = helmet_normal_frames
@@ -34,6 +37,7 @@ func apply_assets() -> void:
 		helmet_sprite_color.sprite_frames = helmet_normal_color_frames
 
 func play(anim: String, flip: bool, visible: bool) -> void:
+	D.debug_order("@")
 	#print("[HelmetContainer] play", anim, "visible:", visible)
 
 	if not visible:
@@ -53,12 +57,14 @@ func play(anim: String, flip: bool, visible: bool) -> void:
 		helmet_sprite_color.stop()
 
 func set_assets(frames: SpriteFrames, color_frames: SpriteFrames) -> void:
+	D.debug_order("@")
 	#print("[HelmetContainer] set_assets")
 	helmet_normal_frames = frames
 	helmet_normal_color_frames = color_frames
 	apply_assets()
 
 func set_look_dir(dir: int) -> void:
+	D.debug_order("@")
 	var rot := 0.0
 
 	match dir:
@@ -74,14 +80,17 @@ func set_look_dir(dir: int) -> void:
 	light.rotation = deg_to_rad(rot)
 
 func set_light() -> void:
+	D.debug_order("@")
 	light_bool = !light_bool
 	light.enabled = light_bool
 
 func set_light_enabled(value: bool) -> void:
+	D.debug_order("@")
 	light_enabled = value
 	if light:
 		light.enabled = value
 
 func set_light_shape(length: float, width: float) -> void:
+	D.debug_order("@")
 	if light:
 		light.scale = Vector2(length, width)

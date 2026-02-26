@@ -19,6 +19,7 @@ extends CanvasLayer
 @onready var player_name : LineEdit = $TextureRect/Control/TextureRect/Name
 
 func _ready() -> void:
+	D.debug_order("@")
 	_on_helmet_button_toggled(true)
 	slider_r.value = 1.0
 	slider_g.value = 1.0
@@ -29,10 +30,12 @@ func _ready() -> void:
 
 # Questo metodo collegalo a TUTTI e 3 gli slider (value_changed)
 func _on_color_slider_changed(value: float) -> void:
+	D.debug_order("@")
 	_apply_color()
 
 
 func _apply_color() -> void:
+	D.debug_order("@")
 	var color := Color(
 		slider_r.value,
 		slider_g.value,
@@ -43,18 +46,22 @@ func _apply_color() -> void:
 
 
 func _on_red_value_changed(value: float) -> void:
+	D.debug_order("@")
 	_on_color_slider_changed(value)
 
 
 func _on_green_value_changed(value: float) -> void:
+	D.debug_order("@")
 	_on_color_slider_changed(value)
 
 
 func _on_blue_value_changed(value: float) -> void:
+	D.debug_order("@")
 	_on_color_slider_changed(value)
 
 
 func _on_helmet_button_toggled(toggled_on: bool) -> void:
+	D.debug_order("@")
 	if toggled_on:
 		$TextureRect/Control/Colors/Helmet/HelmetLabel.text = "helmet"
 		human.set_helmet(toggled_on)
@@ -74,6 +81,7 @@ var current_hair_index: int = 0
 var current_face_index: int = 0
 
 func _on_hair_left_pressed() -> void:
+	D.debug_order("@")
 	if all_hair_frames.is_empty():
 		return
 
@@ -88,6 +96,7 @@ func _on_hair_left_pressed() -> void:
 
 
 func _on_hair_right_pressed() -> void:
+	D.debug_order("@")
 	if all_hair_frames.is_empty():
 		return
 
@@ -102,6 +111,7 @@ func _on_hair_right_pressed() -> void:
 
 
 func _on_face_left_pressed() -> void:
+	D.debug_order("@")
 	if all_face_frames.is_empty():
 		return
 
@@ -116,6 +126,7 @@ func _on_face_left_pressed() -> void:
 
 
 func _on_face_right_pressed() -> void:
+	D.debug_order("@")
 	if all_face_frames.is_empty():
 		return
 
@@ -132,6 +143,7 @@ func _on_face_right_pressed() -> void:
 
 var current_helm_index: int = 0
 func _on_helmet_left_pressed() -> void:
+	D.debug_order("@")
 	if all_helm_frames.is_empty() or all_helm_color_frames.is_empty():
 		return
 
@@ -147,6 +159,7 @@ func _on_helmet_left_pressed() -> void:
 
 
 func _on_helmet_right_pressed() -> void:
+	D.debug_order("@")
 	if all_helm_frames.is_empty() or all_helm_color_frames.is_empty():
 		return
 
@@ -161,6 +174,7 @@ func _on_helmet_right_pressed() -> void:
 
 
 func _on_save_pressed() -> void:
+	D.debug_order("@")
 	if player_name.text == "":
 		$TextureRect/Control/TextureRect/ColorRect.show()
 		return

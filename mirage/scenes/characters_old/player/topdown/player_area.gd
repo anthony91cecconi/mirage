@@ -4,10 +4,12 @@ class_name PlayerArea
 var current_target: Area2D = null
 
 func _ready() -> void:
+	D.debug_order("@")
 	area_entered.connect(_on_area_entered)
 	area_exited.connect(_on_area_exited)
 
 func _on_area_entered(area: Area2D) -> void:
+	D.debug_order("@")
 	# considera SOLO oggetti interagibili
 	if not area.is_in_group("interactable"):
 		return
@@ -20,6 +22,7 @@ func _on_area_entered(area: Area2D) -> void:
 		area.set_highlighted(true)
 
 func _on_area_exited(area: Area2D) -> void:
+	D.debug_order("@")
 	if area != current_target:
 		return
 

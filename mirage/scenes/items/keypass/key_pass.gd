@@ -6,6 +6,7 @@ class_name KeyPass
 var player_inside: Node = null
 
 func _ready() -> void:
+	D.debug_order("@")
 	# fondamentale per ricevere click
 	input_pickable = true
 
@@ -13,6 +14,7 @@ func _ready() -> void:
 	body_exited.connect(_on_body_exited)
 
 func _on_body_entered(body: Node) -> void:
+	D.debug_order("@")
 	if not body.is_in_group("player"):
 		return
 
@@ -20,6 +22,7 @@ func _on_body_entered(body: Node) -> void:
 	_make_red()
 
 func _on_body_exited(body: Node) -> void:
+	D.debug_order("@")
 	if body != player_inside:
 		return
 
@@ -28,6 +31,7 @@ func _on_body_exited(body: Node) -> void:
 
 # ✅ Questo è il pezzo che ti mancava: callback diretto
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
+	D.debug_order("@")
 	if player_inside == null:
 		return
 
@@ -43,9 +47,11 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 # -------------------------
 
 func _make_red() -> void:
+	D.debug_order("@")
 	if sprite:
 		sprite.modulate = Color.RED
 
 func _clear_red() -> void:
+	D.debug_order("@")
 	if sprite:
 		sprite.modulate = Color.WHITE

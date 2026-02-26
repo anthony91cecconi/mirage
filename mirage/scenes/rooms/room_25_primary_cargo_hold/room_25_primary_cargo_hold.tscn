@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=4 uid="uid://scpbacg2pgod"]
 
-[ext_resource type="Script" path="res://scenes/rooms/room_10_officer_quarters/room_10_officer_quarters.gd" id="1_napia"]
+[ext_resource type="Script" path="res://scenes/rooms/room_25_primary_cargo_hold/room_25_primary_cargo_hold.gd" id="1_doupl"]
 [ext_resource type="Texture2D" uid="uid://hy6a1802bt4n" path="res://scenes/rooms/room_47_Infirmary/assets/tile/base.png" id="2_gkdvo"]
 [ext_resource type="PackedScene" uid="uid://by285ejb2udic" path="res://scenes/entities/door/scenedodoor/scenes_door.tscn" id="3_2e8te"]
 
@@ -33,8 +33,7 @@ physics_layer_0/collision_layer = 2
 sources/5 = SubResource("TileSetAtlasSource_73nlw")
 
 [node name="Room25PrimaryCargoHold" type="Node2D"]
-script = ExtResource("1_napia")
-room_id = "PrimaryCargoHold"
+script = ExtResource("1_doupl")
 
 [node name="TileContainer" type="Node2D" parent="."]
 

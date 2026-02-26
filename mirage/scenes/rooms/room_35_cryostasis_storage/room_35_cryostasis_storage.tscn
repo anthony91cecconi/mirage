@@ -52,6 +52,6 @@ to_room_id = "corridor"
 output_spwn = Vector2(-4384.56, 2726.38)
 
 [node name="ScenesDoor2" parent="ExitDors" instance=ExtResource("2_y4ka4")]
-position = Vector2(2930, -1624)
+position = Vector2(2941, -1637)
 to_room_id = "corridor"
 output_spwn = Vector2(-3895.89, 1725.73)

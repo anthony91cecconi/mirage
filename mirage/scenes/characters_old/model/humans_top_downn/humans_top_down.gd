@@ -44,6 +44,7 @@ var last_move_dir: LookDir = LookDir.DOWN
 # MODEL
 # =========================================================
 func create_model() -> HumanModel:
+	D.debug_order("@")
 	#print("[HumansTopDown] create_model")
 	return HumanModel.new(
 		helmet.helmet_normal_frames,
@@ -56,11 +57,13 @@ func create_model() -> HumanModel:
 	)
 
 func set_model(model: HumanModel) -> void:
+	D.debug_order("@")
 	#print("[HumansTopDown] set_model")
 	human_info.human_model = model
 	load_from_model()
 
 func load_from_model() -> void:
+	D.debug_order("@")
 	#print("[HumansTopDown] load_from_model")
 	var m := human_info.human_model
 	if m == null:
@@ -78,6 +81,7 @@ func load_from_model() -> void:
 	apply_assets()
 
 func apply_assets() -> void:
+	D.debug_order("@")
 	#print("[HumansTopDown] apply_assets helmet:", helmet_bool)
 
 	# ✅ applica SEMPRE gli asset
@@ -112,6 +116,7 @@ func _physics_process(delta: float) -> void:
 # MOVIMENTO
 # =========================
 func _update_movement() -> void:
+	D.debug_order("@")
 	velocity = move_dir * speed
 	move_and_slide()
 
@@ -119,6 +124,7 @@ func _update_movement() -> void:
 # BODY DIRECTION
 # =========================
 func _update_body_direction() -> void:
+	D.debug_order("@")
 	if move_dir == Vector2.ZERO:
 		body_dir = last_move_dir
 		return
@@ -130,6 +136,7 @@ func _update_body_direction() -> void:
 # HELMET FROM MOUSE
 # =========================
 func _update_helmet_from_mouse() -> void:
+	D.debug_order("@")
 	var dir := get_global_mouse_position() - global_position
 	var wanted := _vector_to_dir(dir)
 	helmet_dir = _limit_helmet_dir(wanted, body_dir)
@@ -140,6 +147,7 @@ func _update_helmet_from_mouse() -> void:
 # LIMIT HELMET
 # =========================
 func _limit_helmet_dir(wanted: LookDir, body_allow: LookDir) -> LookDir:
+	D.debug_order("@")
 	var allowed := {
 		LookDir.TOP: [LookDir.TOP, LookDir.TOP_LEFT, LookDir.TOP_RIGHT, LookDir.LEFT, LookDir.RIGHT],
 		LookDir.DOWN: [LookDir.DOWN, LookDir.DOWN_LEFT, LookDir.DOWN_RIGHT, LookDir.LEFT, LookDir.RIGHT],
@@ -160,6 +168,7 @@ func _limit_helmet_dir(wanted: LookDir, body_allow: LookDir) -> LookDir:
 # IDLE / WALK
 # =========================
 func _update_idle_walk() -> void:
+	D.debug_order("@")
 	idle = move_dir == Vector2.ZERO
 	walk = not idle
 
@@ -167,6 +176,7 @@ func _update_idle_walk() -> void:
 # ANIMATION NAME
 # =========================
 func _build_animation_name(dir: LookDir) -> String:
+	D.debug_order("@")
 	var base :String= [
 		"down","down_left","left","top_left",
 		"top","top_right","right","down_right"
@@ -180,12 +190,14 @@ func _build_animation_name(dir: LookDir) -> String:
 	return base
 
 func _flip(dir: LookDir) -> bool:
+	D.debug_order("@")
 	return dir in [LookDir.TOP_RIGHT, LookDir.RIGHT, LookDir.DOWN_RIGHT]
 
 # =========================
 # PLAY
 # =========================
 func _play_animation() -> void:
+	D.debug_order("@")
 	var anim_body := _build_animation_name(body_dir)
 	var anim_head := _build_animation_name(helmet_dir)
 
@@ -199,6 +211,7 @@ func _play_animation() -> void:
 # UTILS
 # =========================
 func _vector_to_dir(v: Vector2) -> LookDir:
+	D.debug_order("@")
 	var angle := rad_to_deg(v.angle())
 	if angle < 0: angle += 360
 
@@ -215,16 +228,19 @@ func _vector_to_dir(v: Vector2) -> LookDir:
 # SETTERS
 # =========================
 func set_helmet(value: bool) -> void:
+	D.debug_order("@")
 	#print("[HumansTopDown] set_helmet", value)
 	helmet_bool = value
 	apply_assets()
 
 func set_color(c: Color) -> void:
+	D.debug_order("@")
 	#print("[HumansTopDown] set_color", c)
 	color = c
 	_apply_color()
 
 func _apply_color() -> void:
+	D.debug_order("@")
 	body.apply_color(color)
 	helmet.helmet_sprite_color.modulate = color
 
@@ -232,6 +248,7 @@ func _apply_color() -> void:
 # SETUP
 # =========================
 func setup_from_info(info: HumansInfo) -> void:
+	D.debug_order("@")
 	#print("[HumansTopDown] setup_from_info")
 	human_info = info
 	global_position = info.position
@@ -242,4 +259,5 @@ func setup_from_info(info: HumansInfo) -> void:
 
 
 func pickup_pass() -> void:
+	D.debug_order("@")
 	print("PASS RACCOLTO")

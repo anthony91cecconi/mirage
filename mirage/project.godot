@@ -28,6 +28,8 @@ TimeManager="*res://scripts/menagers/TimeManager.gd"
 RoomManager="*res://scripts/menagers/RoomManager.gd"
 CameraMenager="*res://scripts/menagers/CameraMenager.gd"
 TouchControls="*res://android/controls/touch_controls.tscn"
+JobManager="*res://scripts/menagers/JobManager.gd"
+Orchestrator="*res://scripts/menagers/Orchestrator.gd"
 
 [display]
 
@@ -41,6 +43,9 @@ player=""
 bed=""
 npc=""
 humans=""
+doors=""
+navigation=""
+job=""
 
 [input]
 
@@ -126,11 +131,16 @@ map_room={
 [layer_names]
 
 2d_physics/layer_1="PLAYER"
+2d_navigation/layer_1="road"
 2d_physics/layer_2="WALL"
 2d_physics/layer_3="FLOOR"
 2d_physics/layer_4="ENTITIES"
 2d_physics/layer_5="NPC"
 2d_physics/layer_6="STATIC-ELEMENT"
+
+[navigation]
+
+2d/default_edge_connection_margin=10.0
 
 [rendering]
 

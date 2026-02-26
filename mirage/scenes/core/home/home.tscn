@@ -56,6 +56,21 @@ label_settings = SubResource("LabelSettings_ekxsu")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Test" parent="Buttons" instance=ExtResource("3_1eegi")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Buttons/Test"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "TEST"
+label_settings = SubResource("LabelSettings_ekxsu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="LoadGame" parent="Buttons" instance=ExtResource("3_1eegi")]
 layout_mode = 2
 
@@ -103,5 +118,6 @@ label_settings = SubResource("LabelSettings_d27wr")
 horizontal_alignment = 1
 
 [connection signal="pressed" from="Buttons/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Buttons/Test" to="." method="_on_test_pressed"]
 [connection signal="pressed" from="Buttons/LoadGame" to="." method="_on_load_game_pressed"]
 [connection signal="pressed" from="Buttons/EXIT" to="." method="_on_exit_pressed"]

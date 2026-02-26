@@ -8,6 +8,7 @@ class_name HeadContainer
 @export var head_normal_color_frames: SpriteFrames
 
 func apply_assets() -> void:
+	D.debug_order("@")
 	#print("[HeadContainer] apply_assets")
 	if head_normal_frames:
 		head_sprite.sprite_frames = head_normal_frames
@@ -15,6 +16,7 @@ func apply_assets() -> void:
 		head_sprite_color.sprite_frames = head_normal_color_frames
 
 func play(anim: String, flip: bool) -> void:
+	D.debug_order("@")
 	#print("[HeadContainer] play", anim)
 	head_sprite.flip_h = flip
 	head_sprite_color.flip_h = flip
@@ -24,11 +26,13 @@ func play(anim: String, flip: bool) -> void:
 		head_sprite_color.play(anim)
 
 func set_frames(frames: SpriteFrames) -> void:
+	D.debug_order("@")
 	#print("[HeadContainer] set_frames")
 	head_normal_frames = frames
 	apply_assets()
 
 func set_color_frames(frames: SpriteFrames) -> void:
+	D.debug_order("@")
 	#print("[HeadContainer] set_color_frames")
 	head_normal_color_frames = frames
 	apply_assets()

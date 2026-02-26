@@ -20,6 +20,7 @@ var counter_logs : Array[DebugCount] = []
 # =================================================
 func debug(t: String) -> void:
 	log_msg("debug", t)
+	pass
 
 func error(t: String) -> void:
 	log_msg("error", t)
@@ -161,3 +162,8 @@ func pad_with_dashes(text: String, total_length: int) -> String:
 	
 	var missing := total_length - text.length()
 	return text + "-".repeat(missing)
+
+var count_order : int = 0
+func debug_order(t: String) -> void:
+	count_order += 1
+	log_msg("debug-order", t)

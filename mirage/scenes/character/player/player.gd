@@ -4,7 +4,7 @@ class_name Player
 # =================================================
 # CONFIG
 # =================================================
-@export var move_speed: float = 200.0
+#@export var move_speed: float = 200.0
 @onready var camera: Camera2D = $Camera2D
 
 var input_dir: Vector2 = Vector2.ZERO
@@ -13,6 +13,7 @@ var input_dir: Vector2 = Vector2.ZERO
 # READY
 # =================================================
 func _ready() -> void:
+	D.debug_order("@")
 	super._ready()
 	CameraMenager.change_camera(CameraMenager.CameraType.PLAYER, camera)
 	D.debug("player instanziato")
@@ -60,13 +61,14 @@ func _physics_process(_delta: float) -> void:
 	if input_dir == Vector2.ZERO:
 		velocity = Vector2.ZERO
 	else:
-		velocity = input_dir * move_speed
+		velocity = input_dir * human_data.move_speed
 
 	move_and_slide()
 	_sync_to_info()
 
 
 func debug_print_position(prefix: String = "") -> void:
+	D.debug_order("@")
 	print(
 		"%sPosition -> x: %.2f | y: %.2f"
 		% [prefix, global_position.x, global_position.y]

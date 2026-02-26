@@ -11,11 +11,12 @@ const SAVE_PATH := "res://temp/save.json"
 # =================================================
 var data: Dictionary = {}
 
-
+var load_file : bool
 # =================================================
 # API PUBBLICA
 # =================================================
 func load_game() -> void:
+	D.debug_order("@")
 	HumansManager.clear()
 	if data.has("humans"):
 		HumansManager.from_dict(data["humans"])
@@ -27,11 +28,15 @@ func load_game() -> void:
 
 
 func pre_load_file() -> void:
-	if not file_exists():
-		return
+	file_exists()
+	D.debug_order("@")
 	
+	if not load_file:
+		return
+		
 	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
 	if file == null:
+		load_file = false
 		return
 	
 	var content := file.get_as_text()
@@ -40,22 +45,25 @@ func pre_load_file() -> void:
 	var parsed = JSON.parse_string(content)
 	if typeof(parsed) != TYPE_DICTIONARY:
 		delete_save()
+		load_file = false
 		return
 	
 	data = parsed
 
 	# Controllo versione
 	if not data.has("version") or data["version"] != SaveManager.version:
-		print("Save non compatibile, lo elimino")
+		D.error("Save non compatibile, lo elimino")
 		delete_save()
 		data = {}
 
 
-func file_exists() -> bool:
-	return FileAccess.file_exists(SAVE_PATH)
+func file_exists() -> void:
+	D.debug_order("@")
+	load_file = FileAccess.file_exists(SAVE_PATH)
 
 
 func delete_save() -> void:
+	D.debug_order("@")
 	if FileAccess.file_exists(SAVE_PATH):
 		var err = DirAccess.remove_absolute(SAVE_PATH)
 		if err != OK:

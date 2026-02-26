@@ -18,7 +18,8 @@ var running := true
 
 # ---- READY ----
 func _ready() -> void:
-	# load_time()
+	await Orchestrator.timer_start
+	D.debug_order("@")
 	pass
 
 # ---- PROCESS ----
@@ -48,15 +49,19 @@ func _process(delta: float) -> void:
 # ---- PUBLIC API ----
 
 func get_remaining_hours() -> float:
+	D.debug_order("@")
 	return remaining_hours
 
 func get_remaining_minutes() -> float:
+	D.debug_order("@")
 	return remaining_hours * 60.0
 
 func get_remaining_seconds() -> float:
+	D.debug_order("@")
 	return remaining_hours * 3600.0
 
 func get_formatted_time() -> String:
+	D.debug_order("@")
 	var total_seconds := int(get_remaining_seconds())
 
 	var h := total_seconds / 3600
@@ -66,11 +71,14 @@ func get_formatted_time() -> String:
 	return "%d:%02d:%02d" % [h, m, s]
 
 func stop_time() -> void:
+	D.debug_order("@")
 	running = false
 
 func resume_time() -> void:
+	D.debug_order("@")
 	running = true
 
 # ---- INTERNAL ----
 func load_time()-> void:
+	D.debug_order("@")
 	remaining_hours = LoadManager.load_time_second()

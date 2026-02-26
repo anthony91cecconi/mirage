@@ -5,6 +5,7 @@ class_name BodyContainer
 @onready var body_color: AnimatedSprite2D = $Body2
 
 func play(anim: String, flip: bool) -> void:
+	D.debug_order("@")
 	#print("[BodyContainer] play", anim)
 	body.flip_h = flip
 	body_color.flip_h = flip
@@ -14,5 +15,6 @@ func play(anim: String, flip: bool) -> void:
 		body_color.play(anim)
 
 func apply_color(color: Color) -> void:
+	D.debug_order("@")
 	#print("[BodyContainer] apply_color", color)
 	body_color.modulate = color

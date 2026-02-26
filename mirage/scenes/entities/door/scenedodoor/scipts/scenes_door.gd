@@ -6,6 +6,8 @@ class_name ScenesDoor
 var rng
 
 func _ready() -> void:
+	await Orchestrator.roomManager_ready
+	D.debug_order("@")
 	if id == 0:
 		rng = RandomNumberGenerator.new()
 		rng.randomize()
@@ -13,6 +15,7 @@ func _ready() -> void:
 
 
 func _on_area_2d_body_entered(body: HumanBody) -> void:
+	D.debug_order("@")
 	D.debug("entrato nella porta")
 	D.debug(str(body.get_groups()))
 	D.debug("direzione "+to_room_id+" "+str(output_spwn))

@@ -2,6 +2,7 @@ extends RoomBase
 
 
 func _ready() -> void:
+	D.debug_order("@")
 	super._ready()
 	start_room_counters()
 	HumansManager.npc_moved_simulation.connect(_on_npc_moved_simulation)
@@ -13,6 +14,7 @@ func _ready() -> void:
 # SIGNAL HANDLER
 # =================================================
 func _on_npc_moved(id:String, old_room:String, new_room:String) -> void:
+	D.debug_order("@")
 	
 	# aggiorniamo i contatori come prima
 	_update_room_counters(old_room, new_room)
@@ -22,6 +24,7 @@ func _on_npc_moved(id:String, old_room:String, new_room:String) -> void:
 		spawn_dinamic_human(id)
 
 func _on_npc_moved_simulation(id:String, old_room:String, new_room:String) -> void:
+	D.debug_order("@")
 	_update_room_counters(old_room, new_room)
 
 	if new_room == "corridor":
@@ -32,6 +35,7 @@ func _on_npc_moved_simulation(id:String, old_room:String, new_room:String) -> vo
 # ROOM COUNTERS
 # =================================================
 func _update_room_counters(room1:String, room2:String) -> void:
+	D.debug_order("@")
 	for child in get_children():
 		
 		if not child is Node2D:
@@ -49,6 +53,7 @@ func _update_room_counters(room1:String, room2:String) -> void:
 
 
 func start_room_counters() -> void:
+	D.debug_order("@")
 	for child in get_children():
 		if not child is Node2D:
 			continue
@@ -63,6 +68,7 @@ func start_room_counters() -> void:
 				label.text = str(count)
 
 func spawn_human(h: HumansInfo) -> void:
+	D.debug_order("@")
 
 	var scene := load("res://scenes/character/NPCS/base/corridor_body/corridor_body.tscn")
 	if h.human_id == "player":

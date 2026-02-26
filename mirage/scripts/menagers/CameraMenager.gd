@@ -10,6 +10,7 @@ var map_layer := false
 var room := false
 
 func change_camera(type: CameraType, c: Camera2D) -> void:
+	D.debug_order("@")
 	match type:
 		CameraType.PLAYER:
 			player_camera = c
@@ -18,8 +19,11 @@ func change_camera(type: CameraType, c: Camera2D) -> void:
 			room_camera = c
 		CameraType.MAP:
 			map_layer_camera = c
+	D.debug("telecamera ok")
+	Orchestrator.cameraManager = true
 
 func map_layer_swap() -> void:
+	D.debug_order("@")
 	if not RoomManager._map_layer_instance:
 		RoomManager.map_layer_init()
 	
@@ -35,6 +39,7 @@ func map_layer_swap() -> void:
 
 # solo debug
 func room_swap() -> void:
+	D.debug_order("@")
 	if room and is_instance_valid(room_camera):
 		room_camera.make_current()
 		D.debug("posizione room camera "+ str(room_camera.global_position))

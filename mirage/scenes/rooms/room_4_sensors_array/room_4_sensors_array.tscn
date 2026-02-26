@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://hy6a1802bt4n" path="res://scenes/rooms/room_47_Infirmary/assets/tile/base.png" id="2_nb0kr"]
 [ext_resource type="PackedScene" uid="uid://by285ejb2udic" path="res://scenes/entities/door/scenedodoor/scenes_door.tscn" id="3_4nn8x"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_73nlw"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ukslr"]
 texture = ExtResource("2_nb0kr")
 texture_region_size = Vector2i(32, 32)
 0:0/next_alternative_id = 13
@@ -30,7 +30,7 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_bftbn"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 2
-sources/5 = SubResource("TileSetAtlasSource_73nlw")
+sources/5 = SubResource("TileSetAtlasSource_ukslr")
 
 [node name="Room4SensorsArray" type="Node2D"]
 script = ExtResource("1_7o8h2")

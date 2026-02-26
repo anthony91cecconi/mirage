@@ -1,8 +1,5 @@
 extends RoomBase
 
-@onready var camera : Camera2D = $Camera2D
-
-
 func _ready() -> void:
 	super._ready()
 	D.debug("Room34GroundVehicleBay generatoa")

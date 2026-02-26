@@ -23,6 +23,7 @@ func _init(
 	_helmet: bool,
 	_color: Color
 ) -> void:
+	D.debug_order("@")
 	helmet_normal_frames = _helmet_normal_frames
 	helmet_normal_color_frames = _helmet_normal_color_frames
 	head_normal_frames = _head_normal_frames
@@ -34,6 +35,7 @@ func _init(
 
 # === SERIALIZATION (JSON SAFE) ===
 func to_dict() -> Dictionary:
+	D.debug_order("@")
 	return {
 		"helmet_normal_frames": helmet_normal_frames.resource_path,
 		"helmet_normal_color_frames": helmet_normal_color_frames.resource_path,
@@ -46,6 +48,7 @@ func to_dict() -> Dictionary:
 
 
 static func from_dict(d: Dictionary) -> HumanModel:
+	D.debug_order("@")
 	return HumanModel.new(
 		_load_frames(d.get("helmet_normal_frames", "")),
 		_load_frames(d.get("helmet_normal_color_frames", "")),
@@ -59,6 +62,7 @@ static func from_dict(d: Dictionary) -> HumanModel:
 
 # === UTILS ===
 static func _load_frames(path: String) -> SpriteFrames:
+	D.debug_order("@")
 	if path.is_empty():
 		return null
 	return load(path)
@@ -66,6 +70,7 @@ static func _load_frames(path: String) -> SpriteFrames:
 
 # === DEBUG ===
 func _to_string() -> String:
+	D.debug_order("@")
 	return (
 		"HumanModel {\n" +
 		"  helmet_normal_frames:        %s\n" % _res_path(helmet_normal_frames) +
@@ -80,6 +85,7 @@ func _to_string() -> String:
 
 
 static func _res_path(res: Resource) -> String:
+	D.debug_order("@")
 	if res == null:
 		return "null"
 	return res.resource_path

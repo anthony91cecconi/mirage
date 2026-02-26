@@ -9,6 +9,7 @@ var brocken : bool = false
 var NPC_ID: String = ""
 
 func _init(_bed_active : bool,_bed_id : String,_mental_health_delta :  int,_sleep_recovery : int, _brocken : bool ,_NPC_ID: String) -> void:
+	D.debug_order("@")
 	bed_active = _bed_active
 	bed_id =_bed_id
 	mental_health_delta = _mental_health_delta
@@ -18,6 +19,7 @@ func _init(_bed_active : bool,_bed_id : String,_mental_health_delta :  int,_slee
 
 
 static func to_dict(bed: BedInfo) -> Dictionary:
+	D.debug_order("@")
 	return {
 		"bed_active": bed.bed_active,
 		"bed_id": bed.bed_id,
@@ -29,6 +31,7 @@ static func to_dict(bed: BedInfo) -> Dictionary:
 
 
 static func from_dict(d: Dictionary) -> BedInfo:
+	D.debug_order("@")
 	return BedInfo.new(
 		d.get("bed_active", ""),
 		d.get("bed_id", ""),
@@ -39,6 +42,7 @@ static func from_dict(d: Dictionary) -> BedInfo:
 	)
 
 func has_id() -> bool:
+	D.debug_order("@")
 	if not bed_id.is_empty() and not bed_id == "":
 		return true
 	return false 
